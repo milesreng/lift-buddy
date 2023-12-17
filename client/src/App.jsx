@@ -1,14 +1,27 @@
 import { useState } from 'react'
+import { Route,
+         createBrowserRouter,
+         createRoutesFromElements,
+         RouterProvider } from 'react-router-dom'
+
 import './App.css'
 
-import Navbar from './pages/Navbar'
+import Layout from './pages/Layout'
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout />}>
+      
+    </Route>
+  )
+)
 
 function App() {
 
   return (
-    <div className='h-screen'>
-      <Navbar />
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   )
 }
 
