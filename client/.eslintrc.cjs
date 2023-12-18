@@ -44,8 +44,8 @@ module.exports = {
       'error',
       'never'
     ],
-    'react/react-in-jsx-scope': {
+    'no-unused-vars': [
       'off'
-    }
+    ]
   }
 }
