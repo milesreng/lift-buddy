@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const Exercise = require('../../models/exercise')
+const Exercise = require('../../models/exercise.model')
 
 // @route   GET api/exercises/test
 // @desc    Test exercise route
