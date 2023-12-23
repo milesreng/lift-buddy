@@ -1,6 +1,8 @@
 .env
+config.env
 __pycache__
 .flaskenv
+client/.DS_Store
 
 venv
 node_modules

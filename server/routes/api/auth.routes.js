@@ -4,6 +4,7 @@ const router = express.Router()
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const validator = require('validator')
 const User = require('../../models/user.model')
 
 // @route   POST api/users
@@ -30,7 +31,8 @@ router.post('/login', async (req, res) => {
       expiresIn: '1h'
     })
 
-    res.status(200).json({ token, userId: user._id })
+    console.log(dbUser)
+    res.status(200).json({ message: 'user successfully authenticated', token, userId: dbUser._id })
 
   } catch (e) {
     console.log(e)
@@ -43,8 +45,20 @@ router.post('/login', async (req, res) => {
 // @access  Public
 router.post('/register', async (req, res) => {
   try {
-    console.log(req.body)
     const user = req.body
+
+    // ensure correct email format
+    if (!validator.isEmail(user.email)) {
+      res.json({message: 'incorrect email format'})
+      return
+    }
+
+    // confirm password strength
+    // 8+ char, at least one lower/uppercase, number and symbol
+    if (!validator.isStrongPassword(user.password)) {
+      res.json({message: 'password too weak'})
+      return
+    }
 
     // Ensure username and password are not taken
     const takenUsername = await User.findOne({username: user.username})
@@ -52,19 +66,22 @@ router.post('/register', async (req, res) => {
 
     if (takenUsername) {
       res.json({message: 'Username has already been taken'})
+      return
     } else if (takenEmail) {
       res.json({message: 'Email has already been taken'})
-    } else {
-      const hashedPassword = await bcrypt.hash(user.password, 10)
-      console.log('hashed password')
-      const newUser = new User({ 
-        username: user.username.toLowerCase(), 
-        firstname: user.firstname,
-        email: user.email,
-        password: hashedPassword})
-      
-        await newUser.save()
+      return
     }
+
+    const hashedPassword = await bcrypt.hash(user.password, 10)
+    const lowerUsername = user.username.toLowerCase()
+    console.log('hashed password')
+    const newUser = new User({ 
+      username: lowerUsername, 
+      firstname: user.firstname,
+      email: user.email,
+      password: hashedPassword})
+      
+      await newUser.save()
 
     res.status(201).json({ message: 'user successfully registered' })
   } catch (e) {
