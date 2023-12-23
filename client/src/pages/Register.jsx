@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import axiosConfig from '../config/axiosConfig'
 
 const Register = () => {
@@ -84,6 +85,7 @@ const Register = () => {
             Register
           </button>
         </form>
+        Already a user? <Link to='/login'>Log in</Link>
       </div>
     </div>
   )
