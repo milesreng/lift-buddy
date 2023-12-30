@@ -1,110 +1,32 @@
 const express = require('express')
 const router = express.Router()
 const checkAuth = require('../../middleware/checkAuth')
-const validator = require('validator')
 
-const User = require('../../models/user.model')
+const userHandlers = require('../../controllers/user.controller')
 
-router.get('/profile', checkAuth, async (req, res) => {
-  try {
-    const uid = req.params.uid
-    const user = await User.findById(uid)
-
-    res,json(user)
-  } catch (e) {
-    res.status(404).json({ message: 'user not found' })
-  }
-})
+// @route   GET api/users
+// @desc    Get user profile
+// @access  Public
+router.get('/profile', checkAuth, userHandlers.get_profile)
 
 // @route   POST api/users
 // @desc    Update user email
 // @access  Public
-router.post('/update/email', async (req, res) => {
-  try {
-    const user = req.body
-
-    if (!validator.isEmail(user.email)) {
-      res.json({message: 'incorrect email format'})
-      return
-    }
-
-    const existEmail = await User.findOne({email: user.email})
-
-    if (existEmail) {
-      res.json({message: 'email has already been taken'})
-    }
-
-    await User.findByIdAndUpdate(user._id, {
-      email: user.email
-    })
-    
-    res.json({message: 'email successfully updated'})
-  } catch (e) {
-    res.status(404).json({message: 'could not update email'})
-  }
-})
+router.post('/update/email', checkAuth, userHandlers.update_email)
 
 // @route   POST api/users
 // @desc    Update user password
 // @access  Public
-router.post('/update/password', async (req, res) => {
-  try {
-    const user = req.body
-
-    if (!validator.isStrongPassword(user.password)) {
-      res.json({message: 'password too weak'})
-      return
-    }
-
-    const hashedPassword = await bcrypt.hash(user.password, 10)
-
-    await User.findByIdAndUpdate(user._id, {
-      password: hashedPassword
-    })
-
-    res.json({message: 'password successfully updated'})
-
-  } catch (e) {
-    res.status(404).json({message: 'could not update password'})
-  }
-})
+router.post('/update/password', checkAuth, userHandlers.update_password)
 
 // @route   POST api/users
 // @desc    Update user profile
 // @access  Public
-router.post('/update/profile', async (req, res) => {
-  try {
-    const user = req.body
-
-    const dbUser = User.findById(user._id)
-    if (user.firstname) {
-      dbUser.firstname = user.firstname
-    }
-
-    if (user.lastname) {
-      dbUser.lastname = user.lastname
-    }
-
-    await dbUser.save()
-    res.json({message: 'user profile successfully updated'})
-    
-  } catch (e) {
-    res.status(404).json({message: 'could not update user profile'})
-  }
-})
+router.post('/update/profile', checkAuth, userHandlers.update_profile_details)
 
 // @route   DELETE api/users
 // @desc    Delete user account
 // @access  Public
-router.delete('/delete', async (req, res) => {
-  try {
-    const user = req.body
-    await User.findByIdAndDelete(user._id)
-
-    res.json({message: 'user account successfully deleted'})
-  } catch (e) {
-    res.json({message: 'user account could not be deleted'})
-  }
-})
+router.delete('/delete', checkAuth, userHandlers.delete_user)
 
 module.exports = router
