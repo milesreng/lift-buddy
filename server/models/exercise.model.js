@@ -6,17 +6,22 @@ const ExerciseSchema = new mongoose.Schema({
     required: true
   },
   description: {
+    type: String
+  },
+  primary_category: {
     type: String,
     required: true
   },
-  muscle_groups: {
-    type: [String]
+  secondary_category: {
+    type: String
   },
-  date_updated: {
-    type: Date,
-    default: Date.now
+  machine: {
+    type: String
+  },
+  link: {
+    type: String
   }
-})
+}, { timestamps: true })
 
 const Exercise = mongoose.model('exercise', ExerciseSchema)
 
