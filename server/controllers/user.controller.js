@@ -19,6 +19,11 @@ const userController = {
       return res.status(400).json({message: 'password is too weak'})
     }
 
+    // confirm username format
+    if (!validator.matches(user.username, '^[a-zA-Z0-9_.-]*$')) {
+      return res.status(400).json({message: 'username not valid'})
+    }
+
     const takenUsername = await User.findOne({username: user.username})
     const takenEmail = await User.findOne({email: user.email})
 
