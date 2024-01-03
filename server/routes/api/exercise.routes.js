@@ -16,7 +16,7 @@ router.get('/all', exerciseController.get_all_exercises)
 // @route   GET api/exercises/category=
 // @desc    Get exercises by category
 // @access  Public
-router.get('/', exerciseController.get_exercises_by_category)
+router.get('/filter', exerciseController.get_exercises_by_category)
 
 // @route   POST api/exercises
 // @desc    Create new exercise

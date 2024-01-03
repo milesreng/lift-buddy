@@ -39,20 +39,43 @@ const exerciseController = {
   },
   get_exercises_by_category: async (req, res) => {
     const category = req.params.category
+    const regex = new RegExp(category, 'i')
+    
+    const primary = await Exercise.find({ primary_category: { $regex: regex } })
+    const secondary = await Exercise.find({ secondary_category: { $regex: regex } })
 
-    const exercises = Exercise.find({ primary_category: category })
-    const secondary_exercises = Exercise.find({ secondary_category: category})
-
-    if (!exercises && !secondary_exercises) {
+    if (!primary && !secondary) {
       return res.status(404).json({ message: 'no exercises found' })
     }
-    
-    const all = {
-      primary: exercises,
-      secondary: secondary_exercises
-    }
 
-    return res.status(200).json(all)
+    return res.status(200).json({ primary, secondary })
+  },
+  update_exercise_category: async (req, res) => {
+    try {
+      const exercise_id = req.params.exercise_id
+      const primary = req.params.primary
+      const secondary = req.params.secondary
+
+      const updateExercise = await Exercise.findById(ObjectId(exercise_id))
+
+      if (!updateExercise) {
+        return res.status(404).json({ message: 'exercise not found' })
+      }
+
+      if (primary) {
+        updateExercise.primary_category = primary
+      }
+
+      if (secondary) {
+        updateExercise.secondary_category = secondary
+      }
+
+      await updateExercise.save()
+
+      return res.status(200).json({ message: 'exercise category updated' })
+    } catch (e) {
+      return res.status(400).json({ message: 'exercise failed to update' })
+    }
   }
 }
 
