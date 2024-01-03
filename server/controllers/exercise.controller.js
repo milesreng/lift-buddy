@@ -50,11 +50,10 @@ const exerciseController = {
 
     return res.status(200).json({ primary, secondary })
   },
-  update_exercise_category: async (req, res) => {
+  update_exercise: async (req, res) => {
     try {
       const exercise_id = req.params.exercise_id
-      const primary = req.params.primary
-      const secondary = req.params.secondary
+      const details = req.body
 
       const updateExercise = await Exercise.findById(ObjectId(exercise_id))
 
@@ -62,17 +61,25 @@ const exerciseController = {
         return res.status(404).json({ message: 'exercise not found' })
       }
 
-      if (primary) {
-        updateExercise.primary_category = primary
+      if (details.primary) {
+        updateExercise.primary_category = details.primary
       }
 
-      if (secondary) {
-        updateExercise.secondary_category = secondary
+      if (details.secondary) {
+        updateExercise.secondary_category = details.secondary
+      }
+
+      if (details.name) {
+        updateExercise.name = details.name
+      }
+
+      if (details.description) {
+        updateExercise.description = details.description
       }
 
       await updateExercise.save()
 
-      return res.status(200).json({ message: 'exercise category updated' })
+      return res.status(200).json({ message: 'exercise successfully updated' })
     } catch (e) {
       return res.status(400).json({ message: 'exercise failed to update' })
     }

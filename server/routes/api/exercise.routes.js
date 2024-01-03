@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const checkAuth = require('../../middleware/checkAuth')
 
 const exerciseController = require('../../controllers/exercise.controller')
 
@@ -21,7 +22,13 @@ router.get('/filter', exerciseController.get_exercises_by_category)
 // @route   POST api/exercises
 // @desc    Create new exercise
 // @access  Public
-router.post('/create', exerciseController.create_exercise)
+router.post('/create', checkAuth, exerciseController.create_exercise)
 
+// NOTE: UPDATE SHOULD CONSIDER GLOBAL VS. LOCAL CHANGES
+
+// @route   POST api/exercises
+// @desc    Update exercise category
+// @access  Public
+router.post('/update', checkAuth, exerciseController.update_exercise)
 
 module.exports = router
