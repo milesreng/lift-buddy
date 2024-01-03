@@ -4,11 +4,11 @@ const { workoutDetailSchema } = require('./detail.model')
 
 const workoutSchema = new mongoose.Schema({
   user_id: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
   template_id: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Template'
   },
   name: {

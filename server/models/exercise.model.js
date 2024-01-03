@@ -9,8 +9,7 @@ const ExerciseSchema = new mongoose.Schema({
     type: String
   },
   primary_category: {
-    type: String,
-    required: true
+    type: String
   },
   secondary_category: {
     type: String

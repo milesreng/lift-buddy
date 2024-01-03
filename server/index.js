@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 const authRoutes = require('./routes/api/auth.routes')
 const userRoutes = require('./routes/api/user.routes')
 const exerciseRoutes = require('./routes/api/exercise.routes')
+const workoutRoutes = require('./routes/api/workout.routes')
+const templateRoutes = require('./routes/api/template.routes')
 
 const app = express()
 
@@ -18,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/exercises', exerciseRoutes)
+app.use('/api/workouts', workoutRoutes)
+app.use('/api/templates', templateRoutes)
 
 connectDB()
 
