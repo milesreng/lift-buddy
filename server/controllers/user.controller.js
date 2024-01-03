@@ -4,8 +4,9 @@ const validator = require('validator')
 
 const User = require('../models/user.model')
 
-exports.register = async (req, res) => {
-  const user = req.body
+const userController = {
+  register: async (req, res) => {
+    const user = req.body
 
     // ensure correct email format
     if (!validator.isEmail(user.email)) {
@@ -39,45 +40,41 @@ exports.register = async (req, res) => {
       await newUser.save()
 
     return res.status(201).json({ message: 'user successfully registered' })
-}
+  },
+  login: async (req, res) => {
+    const user = req.body
+    const dbUser = await User.findOne({ email: user.email })
 
-exports.login = async (req, res) => {
-  const user = req.body
-  const dbUser = await User.findOne({ email: user.email })
+    // Match password with database password
+    if (!dbUser || !bcrypt.compare(user.password, dbUser.password)) {
+      return res.status(401).json({ error:'invalid username or password' })
+    }
 
-   // Match password with database password
-  if (!dbUser || !bcrypt.compare(user.password, dbUser.password)) {
-    return res.status(401).json({ error:'invalid username or password' })
-  }
+    // Create a JSON web token
+    const token = jwt.sign({ userId: dbUser._id, email: dbUser.email }, process.env.SECRET_KEY, {
+      expiresIn: '1h'
+    })
 
-  // Create a JSON web token
-  const token = jwt.sign({ userId: dbUser._id, email: dbUser.email }, process.env.SECRET_KEY, {
-    expiresIn: '1h'
-  })
+    res.status(200).json({ message: 'user successfully authenticated', token, userId: dbUser._id })
+  },
+  get_profile: async (req, res) => {
+    const uid = req.params.uid
+    const user = await User.findById(uid)
 
-  res.status(200).json({ message: 'user successfully authenticated', token, userId: dbUser._id })
-  
-}
+    if (!user) {
+      return res.status(404).json({ message: 'user not found' })
+    }
 
-exports.get_profile = async (req, res) => {
-  const uid = req.params.uid
-  const user = await User.findById(uid)
+    return res.status(200).json(user)
+  },
+  update_email: async (req, res) => {
+    const user = req.body
 
-  if (!user) {
-    return res.status(404).json({ message: 'user not found' })
-  }
+    if (!validator.isEmail(user.email)) {
+      return res.json({message: 'incorrect email format'})
+    }
 
-  return res.status(200).json(user)
-}
-
-exports.update_email = async (req, res) => {
-  const user = req.body
-
-  if (!validator.isEmail(user.email)) {
-    return res.json({message: 'incorrect email format'})
-  }
-
-  const existEmail = await User.findOne({email: user.email})
+    const existEmail = await User.findOne({email: user.email})
 
     if (existEmail) {
       res.json({message: 'email has already been taken'})
@@ -90,59 +87,59 @@ exports.update_email = async (req, res) => {
     }
     
     return res.status(201).json({message: 'email successfully updated'})
-}
-
-exports.update_password = async (req, res) => {
-  const user = req.body
-
-  if (!validator.isStrongPassword(user.password)) {
-    return res.json({message: 'password too weak'})
-  }
-
-  const hashedPassword = await bcrypt.hash(user.password, 10)
-
-  const updateUser = await User.findByIdAndUpdate(user._id, { password: hashedPassword })
-
-  if (!updateUser) {
-    return res.status(404).json({message: 'could not update password'})
-  }
-  
-  return res.status(201).json({message: 'password successfully updated'})
-}
-
-exports.update_profile_details = async (req, res) => {
-  const user = req.body
-
-  const dbUser = User.findById(user._id)
-
-  if (!dbUser) {
-    return res.status(404).json({message: 'could not find user'})
-  }
-
-  if (user.firstname) {
-    dbUser.firstname = user.firstname
-  }
-
-  if (user.lastname) {
-    dbUser.lastname = user.lastname
-  }
-
-  const updateUser = await dbUser.save()
-
-  if (!updateUser) {
-    return res.status(404).json({message: 'could not update user'})
-  }
-
-  return res.status(201).json({message: 'user profile successfully updated'})
-}
-
-exports.delete_user = async (req, res) => {
-  try {
+  },
+  update_password: async (req, res) => {
     const user = req.body
-    await User.findByIdAndDelete(user._id)
-
-    return res.status(201).json({message: 'user account successfully deleted'})
-  } catch (e) {
-    return res.status(400).json({ message: 'could not delete user account'})
+  
+    if (!validator.isStrongPassword(user.password)) {
+      return res.json({message: 'password too weak'})
+    }
+  
+    const hashedPassword = await bcrypt.hash(user.password, 10)
+  
+    const updateUser = await User.findByIdAndUpdate(user._id, { password: hashedPassword })
+  
+    if (!updateUser) {
+      return res.status(404).json({message: 'could not update password'})
+    }
+    
+    return res.status(201).json({message: 'password successfully updated'})
+  },
+  update_profile_details: async (req, res) => {
+    const user = req.body
+  
+    const dbUser = User.findById(user._id)
+  
+    if (!dbUser) {
+      return res.status(404).json({message: 'could not find user'})
+    }
+  
+    if (user.firstname) {
+      dbUser.firstname = user.firstname
+    }
+  
+    if (user.lastname) {
+      dbUser.lastname = user.lastname
+    }
+  
+    const updateUser = await dbUser.save()
+  
+    if (!updateUser) {
+      return res.status(404).json({message: 'could not update user'})
+    }
+  
+    return res.status(201).json({message: 'user profile successfully updated'})
+  },
+  delete_user: async (req, res) => {
+    try {
+      const user = req.body
+      await User.findByIdAndDelete(user._id)
+  
+      return res.status(201).json({message: 'user account successfully deleted'})
+    } catch (e) {
+      return res.status(400).json({ message: 'could not delete user account'})
+    }
   }
 }
+
+module.exports = userController

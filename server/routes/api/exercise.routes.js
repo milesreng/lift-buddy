@@ -1,31 +1,27 @@
 const express = require('express')
 const router = express.Router()
 
-const Exercise = require('../../models/exercise.model')
+const exerciseController = require('../../controllers/exercise.controller')
 
-// @route   GET api/exercises/test
-// @desc    Test exercise route
+// @route   GET api/exercises/exercise_id=
+// @desc    Get single exercise by id
 // @access  Public
-router.get('/test', (req, res) => res.send('exercise route testing'))
+router.get('/', exerciseController.get_exercise)
 
 // @route   GET api/exercises
 // @desc    Get all exercises
 // @access  Public
-router.get('/', (req, res) => {
-  Exercise.find()
-    .then(exercises => res.json(exercises))
-    .catch(err => res.status(404).json({ comment: 'no exercises found' }))
-})
+router.get('/all', exerciseController.get_all_exercises)
 
-// @route   GET api/exercises/:id
-// @desc    Get single exercise by id
+// @route   GET api/exercises/category=
+// @desc    Get exercises by category
 // @access  Public
-router.get('/:id', (req, res) => {
-  Exercise.findById(req.params.id)
-    ,then(exercise => res.json(exercise))
-    .catch(err => res.status(404).json({ comment: 'exercise not found' }))
-})
+router.get('/', exerciseController.get_exercises_by_category)
 
+// @route   POST api/exercises
+// @desc    Create new exercise
+// @access  Public
+router.post('/create', exerciseController.create_exercise)
 
 
 module.exports = router
