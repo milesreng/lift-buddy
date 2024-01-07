@@ -24,6 +24,11 @@ router.post('/create/blank', checkAuth, workoutController.create_blank_workout)
 // @access  Public
 router.post('/create/source', checkAuth, workoutController.create_workout_from_template)
 
+// @route   POST api/workouts
+// @desc    Duplicate existing workout
+// @access  Public
+router.post('/duplicate', checkAuth, workoutController.duplicate_workout)
+
 // @route   POST api/workouts/update
 // @desc    Update workout
 // @access  Public
@@ -39,10 +44,15 @@ router.post('/add/detail', checkAuth, workoutController.add_exercise)
 // @access  Public
 router.post('/add/set', checkAuth, workoutController.add_exercise_set)
 
-// @route   POST api/workouts/add/set
+// @route   POST api/workouts/update/set
 // @desc    Update set details
 // @access  Public
 router.post('/update/set', checkAuth, workoutController.update_exercise_set)
+
+// @route   POST api/workouts/end
+// @desc    End workout
+// @access  Public
+router.post('/end', checkAuth, workoutController.end_workout)
 
 // @route   DELETE api/workouts
 // @desc    Delete workout

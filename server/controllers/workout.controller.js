@@ -80,6 +80,58 @@ const workoutController = {
       return res.status(400).json({ message: 'error in workoutController.create_workout_from_template'})
     }
   },
+  duplicate_workout: async (req, res) => {
+    try {
+      const workout_id = req.body.workout_id
+
+      const workout = await Workout.findById(new ObjectId(workout_id))
+      const name = `Copy of ${workout.name}`
+
+      const newWorkout = new Workout({
+        user_id: workout.user_id, 
+        template_id: workout.template_id,
+        exercises: [],
+        name, 
+        startTime: Date.now(), 
+        endTime: null 
+      })
+
+      // console.log(workout.exercises[0])
+
+      // duplicate each instance of exercises and sets
+
+      for (let i = 0; i < workout.exercises.length; i++) {
+        const existDetail = workout.exercises[i]
+        // console.log(existDetail)
+        const newDetail = new WorkoutDetail({
+          exercise_id: new ObjectId(existDetail.exercise_id),
+          sets: []
+        })
+
+        for (let j = 0; j < existDetail.sets.length; j++) {
+          const existSet = existDetail.sets[j]
+          const newSet = {
+            _id: new ObjectId(),
+            reps: existSet.reps,
+            weight: existSet.weight
+          }
+
+          newDetail.sets.push(newSet)
+        }
+
+        newWorkout.exercises.push(newDetail)
+      }
+
+      // console.log(newWorkout)
+      await newWorkout.save()
+
+      return res.status(200).json({ message: 'workout successfully created', newWorkout })
+
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in workoutController.duplicate_workout'})
+    }
+  },
   add_exercise: async (req, res) => {
     try {
       const exercise_id = req.body.exercise_id
