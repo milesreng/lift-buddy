@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb')
+
 const Workout = require('../models/workout.model')
 const Template = require('../models/template.model')
 const { WorkoutDetail } = require('../models/detail.model')
@@ -11,7 +13,7 @@ const workoutController = {
       return res.status(200).json(workout)
   
     } catch (e) {
-      return res.status(404).json({ message: 'workout not found' })
+      return res.status(404).json({ message: 'error in workoutController.get_workout'})
     }
   },
   get_workouts_by_user: async (req, res) => {
@@ -22,17 +24,16 @@ const workoutController = {
       return res.status(200).json(workouts)
   
     } catch (e) {
-      return res.status(404).json({ message: 'no workouts found' })
+      return res.status(404).json({ message: 'error in workoutController.get_workouts_by_user'})
     }
   },
   // use when workout created from scratch
   create_blank_workout: async (req, res) => {
     try {
-      const uid = req.params.uid
       const workout = req.body
   
       const newWorkout = new Workout({
-        user_id: uid,
+        user_id: workout.user_id,
         name: workout.name,
         exercises: [],
         startTime: Date.now()
@@ -43,11 +44,145 @@ const workoutController = {
       return res.status(200).json({ message: 'workout successfully created' })
   
     } catch (e) {
-      return res.status(400).json({ message: 'workout could not be created' })
+      console.log(e)
+      return res.status(400).json({ message: 'error in workoutController.create_blank_workout'})
     }
   },
   create_workout_from_template: async (req, res) => {
+    try {
+      const workout = req.body
+
+      const template = await Template.findById(new ObjectId(workout.template_id))
+
+      const newWorkout = new Workout({
+        user_id: workout.user_id,
+        name: `${template.name} Workout`,
+        template_id: new ObjectId(template._id),
+        exercises: [],
+        startTime: Date.now()
+      })
+
+      for (var i = 0; i < template.exercises.length; i++) {
+        const existDetail = template.exercises[i]
+        const newDetail = existDetail
+        newDetail._id = new ObjectId()
+
+        await newDetail.save()
+        newWorkout.exercises.push(newDetail)
+      }
+
+      await newWorkout.save()
+
+      return res.status(200).json({ message: 'workout successfully created', newWorkout })
+
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in workoutController.create_workout_from_template'})
+    }
+  },
+  add_exercise: async (req, res) => {
+    try {
+      const exercise_id = req.body.exercise_id
+      const workout_id = req.body.workout_id
+
+      const newDetail = new WorkoutDetail({
+        exercise_id: new ObjectId(exercise_id),
+        sets: []
+      })
+
+      const workout = await Workout.findById(new ObjectId(workout_id))
+
+      workout.exercises.push(newDetail)
+
+      await workout.save()
+
+      return res.status(200).json({ message: 'exercise added to workout', workout })
+      
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in add_exercise' })
+    }
+  },
+  update_exercise: async (req, res) => {
+
+  },
+  add_exercise_set: async (req, res) => {
+    try {
+      const workout_id = req.body.workout_id
+      const detail_id = req.body.detail_id
+      const set = {
+        reps: req.body.reps,
+        weight: req.body.weight
+      }
+
+      const workout = await Workout.findById(new ObjectId(workout_id))
+      const detail = workout.exercises.id(detail_id)
+
+      detail.sets.push(set)
+
+      await workout.save()
     
+      return res.status(200).json({ message: 'set added to exercise', workout })
+
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in add_exercise_set' })
+    }
+  },
+  update_exercise_set: async (req, res) => {
+    try {
+      const workout_id = req.body.workout_id
+      const detail_id = req.body.detail_id
+      const set_id = req.body.set_id
+
+      const set = {
+        reps: req.body.reps,
+        weight: req.body.weight
+      }
+
+      const workout = await Workout.findById(new ObjectId(workout_id))
+      const detail = workout.exercises.id(detail_id)
+      const dbSet = detail.sets.id(set_id)
+
+      dbSet.reps = set.reps
+      dbSet.weight = set.weight
+
+      await workout.save()
+
+      return res.status(200).json({ message: 'set successfully updated', workout })
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in update_exercise_set' })
+    }
+  },
+  end_workout: async (req, res) => {
+    try {
+      const workout_id = req.body.workout_id
+      const workout = await Workout.findById(new ObjectId(workout_id))
+
+      workout.endTime = Date.now()
+
+      await workout.save()
+
+      return res.status(200).json({ message: 'workout successfully ended', workout })
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in workoutController.end_workout'})
+    }
+  },
+  update_workout_details: async (req, res) => {
+    try {
+
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in workoutController.update_workout_details'})
+    }
+  },
+  delete_exercise: async (req, res) => {
+
+  },
+  delete_workout: async (req, res) => {
+
   }
 }
 
