@@ -9,6 +9,11 @@ const workoutController = require('../../controllers/workout.controller')
 // @access  Public
 router.get('/', checkAuth, workoutController.get_workout)
 
+// @route   GET api/workouts/all
+// @desc    Get all workouts by user
+// @access  Public
+router.get('/all', checkAuth, workoutController.get_workouts_by_user)
+
 // @route   POST api/workouts
 // @desc    Create new workout
 // @access  Public
@@ -19,4 +24,4 @@ router.post('/create/blank', checkAuth, workoutController.create_blank_workout)
 // @access  Public
 router.post('/create/source-template', checkAuth, workoutController.create_workout_from_template)
 
-module.exports = router
+module.exports = router 

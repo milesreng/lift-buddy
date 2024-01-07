@@ -1,4 +1,4 @@
-.env
+server/.env
 config.env
 __pycache__
 .flaskenv

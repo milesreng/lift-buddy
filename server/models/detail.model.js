@@ -1,15 +1,16 @@
 const mongoose = require('mongoose')
 
+const setSchema = new mongoose.Schema({
+  reps: Number,
+  weight: Number
+})
+
 const workoutDetailSchema = new mongoose.Schema({
   exercise_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Exercise'
   },
-  sets: [{
-    type: String,
-    reps: Number,
-    weight: Number
-  }]
+  sets: [setSchema]
 })
 
 const WorkoutDetail = mongoose.model('WorkoutDetail', workoutDetailSchema)

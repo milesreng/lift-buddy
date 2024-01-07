@@ -29,6 +29,11 @@ router.post('/update', checkAuth, templateController.update_template)
 // @access  Public
 router.post('/add/detail', checkAuth, templateController.add_template_detail)
 
+// @route   POST api/templates/add/set
+// @desc    Add set to detail in template
+// @access  Public
+router.post('/add/set', checkAuth, templateController.add_exercise_set)
+
 // @route   DELETE api/templates/delete
 // @desc    Delete template
 // @access  Public

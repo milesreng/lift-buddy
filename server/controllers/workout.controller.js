@@ -5,7 +5,7 @@ const { WorkoutDetail } = require('../models/detail.model')
 const workoutController = {
   get_workout: async (req, res) => {
     try {
-      const workout_id = req.params.wid
+      const workout_id = req.params.workout_id
       const workout = await Workout.findById(workout_id)
   
       return res.status(200).json(workout)
