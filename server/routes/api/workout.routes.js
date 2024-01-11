@@ -57,6 +57,6 @@ router.post('/end', checkAuth, workoutController.end_workout)
 // @route   DELETE api/workouts
 // @desc    Delete workout
 // @access  Public
-router.delete('/', checkAuth, workoutController.delete_workout)
+router.delete('/delete', checkAuth, workoutController.delete_workout)
 
 module.exports = router 

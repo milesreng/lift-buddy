@@ -10,27 +10,27 @@ const userController = {
 
     // ensure correct email format
     if (!validator.isEmail(user.email)) {
-      return res.status(400).json({message: 'incorrect email format'})
+      return res.status(400).json({error: 'incorrect email format'})
     }
 
     // confirm password strength
     // 8+ char, at least one lower/uppercase, number and symbol
     if (!validator.isStrongPassword(user.password)) {
-      return res.status(400).json({message: 'password is too weak'})
+      return res.status(400).json({error: 'password is too weak'})
     }
 
     // confirm username format
     if (!validator.matches(user.username, '^[a-zA-Z0-9_.-]*$')) {
-      return res.status(400).json({message: 'username not valid'})
+      return res.status(400).json({error: 'username not valid'})
     }
 
     const takenUsername = await User.findOne({username: user.username})
     const takenEmail = await User.findOne({email: user.email})
 
     if (takenUsername) {
-      return res.status(400).json({message: 'username has been taken'})
+      return res.status(400).json({error: 'username has been taken'})
     } else if (takenEmail) {
-      return res.status(400).json({message: 'there is already an account connected to this email'})
+      return res.status(400).json({error: 'there is already an account connected to this email'})
     }
 
     const hashedPassword = await bcrypt.hash(user.password, 10)
@@ -60,10 +60,11 @@ const userController = {
       expiresIn: '1h'
     })
 
-    res.status(200).json({ message: 'user successfully authenticated', token, userId: dbUser._id })
+    res.status(200).json({ message: 'user successfully authenticated', token, userInfo: dbUser })
   },
   get_profile: async (req, res) => {
-    const uid = req.params.uid
+    console.log(req)
+    const uid = req.userData.userId
     const user = await User.findById(uid)
 
     if (!user) {
