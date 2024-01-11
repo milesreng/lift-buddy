@@ -1,92 +1,127 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import axiosConfig from '../config/axiosConfig'
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 const Register = () => {
 
-  const [formData, setFormData] = useState({
-    username: '',
-    firstname: '',
-    email: '',
-    password: '',
-    verifyPassword: ''
-  })
+  const navigate = useNavigate()
 
-  const [isValidEmail, setIsValidEmail] = useState()
-  const [isValidPassword, setIsValidPassword] = useState()
-  const [passwordMatch, setPasswordMatch] = useState()
+  const [username, setUsername] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [repeatPassword, setRepeatPassword] = useState('')
+  const [errors, setErrors] = useState({})
 
-  const pwRegex = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+  const [passwordType, setPasswordType] = useState('password')
+  const [passwordMatch, setPasswordMatch] = useState(true)
 
-  const handleRegisterUser = async () => {
-    if (isValidPassword && passwordMatch) {
-      axiosConfig.post('/api/auth/register', formData)
-        .then((res) => {
-          console.log(res)
-        })
+  const handleRegister = (e) => {
+    e.preventDefault()
+
+    if (!password || (password !== repeatPassword)) {
+      // throw password validation error
+      console.log('password validation error')
+      setPasswordMatch(false)
+      return
+    }
+
+    const newUser = {
+      firstname: e.target.firstname.value,
+      email: e.target.email.value,
+      username: e.target.username.value,
+      password: e.target.password.value
+    }
+
+    console.log(newUser)
+
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    }).then(res => res.json())
+      .then(data => data.error ? setErrors([ ...errors, data.error ]) : navigate('/verify'))
+      .catch(e => console.log(e))
+  }
+
+  const toggleShowPassword = () => {
+    if (passwordType === 'password') {
+      setPasswordType('text')
+    } else {
+      setPasswordType('password')
     }
   }
 
-  const handleFormChange = (e) => {
-    const value = e.target.value
-    setFormData({
-      ...formData, [e.target.name]: value
-    })
+  const validateForm = () => {
     
-    if (pwRegex.test(formData.password)) {
-      setIsValidPassword(true)
-    } else {
-      setIsValidPassword(false)
-    }
+  }
 
-    if (formData.password !== formData.verifyPassword) {
-      setPasswordMatch(false)
+  const checkPasswordMatch = (e) => {
+    if (e.target.value === password) {
+      setErrors({ ...errors, password: 'passwords do not match'})
     } else {
-      setPasswordMatch(true)
+      setPasswordMatch(false)
     }
   }
 
   return (
-    <div className='w-full'>
-      <div className="container w-2/3 m-auto shadow-lg p-4 bg-slate-100">
-        <h3 className='text-2xl text-center py-2'>Register</h3>
-        <form className="container w-full flex flex-col gap-4">
-          <div className="row w-full flex justify-between">
-            <label htmlFor="username" className='col-4'>Username</label>
-            <input className='w-3/4' type="text" name="username" id="username" onChange={handleFormChange} required />
+    <div className='w-5/6 md:w-1/2 lg:w-1/3 mx-auto py-6'>
+      <form onSubmit={handleRegister} className='shadow-2xl flex flex-col gap-4 p-4'>
+        <h1 className='text-3xl'>Register</h1>
+        <div className="py-2">
+          <span className="px-1 text-sm text-gray-600 dark:text-gray-300">First name</span>
+          <input placeholder="" type="text" name="firstname" onChange={e => setFirstName(e.target.value)} value={firstName} required
+            className="text-palette-dark text-md block px-3 py-2  rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" />
+        </div>
+        <div className="py-2">
+          <span className="px-1 text-sm text-gray-600 dark:text-gray-300">Email</span>
+          <input placeholder="" type="text" name="email" onChange={e => setEmail(e.target.value)} value={email} required
+            className="text-palette-dark text-md block px-3 py-2  rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" />
+        </div>
+        <div className="py-2">
+          <span className="px-1 text-sm text-gray-600 dark:text-gray-300">Username</span>
+          <input placeholder="" type="text" name="username" onChange={e => setUsername(e.target.value)} value={username} required
+            className="text-palette-dark text-md block px-3 py-2  rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none" />
+        </div>
+        <div className="py-2">
+          <span className="px-1 text-sm text-gray-600 dark:text-gray-300">Password</span>
+          <div className="relative">
+            <input placeholder="" type={passwordType} name="password" onChange={e => setPassword(e.target.value)} value={password} required className="text-md block px-3 py-2 rounded-lg w-full 
+              text-palette-dark
+              bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md
+                focus:placeholder-gray-500
+                focus:bg-white 
+                focus:border-gray-600  
+                focus:outline-none" />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 hover:cursor-pointer" onClick={toggleShowPassword}>
+              <FontAwesomeIcon icon={passwordType === 'password' ? faEye : faEyeSlash} className='text-palette-mid'></FontAwesomeIcon>
+            </div>
           </div>
-          <div className="row w-full flex justify-between">
-            <label htmlFor="firstname" className='col-4'>First Name</label>
-            <input className='w-3/4' type="text" name="firstname" id="firstname" onChange={handleFormChange} required />
+        </div>
+        <div className="py-2">
+          <span className="px-1 text-sm text-gray-600 dark:text-gray-300">Repeat password</span>
+          <div className="relative">
+            <input placeholder="" type="password" onChange={e => setRepeatPassword(e.target.value)} value={repeatPassword} className="text-md block px-3 py-2 rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md
+                text-palette-dark focus:placeholder-gray-500
+                focus:bg-white 
+                focus:border-gray-600  
+                focus:outline-none" />
           </div>
-          <div className="row w-full flex justify-between">
-            <label htmlFor="email" className='col-4'>Email</label>
-            <input className='w-3/4' type="text" name="email" id="email" onChange={handleFormChange} required />
-          </div>
-          <div className="row w-full flex justify-between">
-            <label htmlFor="password" className='col-4'>Password</label>
-            <input className='w-3/4' type="text" name="password" id="password" onChange={handleFormChange} required />
-          </div>
-          {!isValidPassword && 
-          <p className='text-red-600'>
-            invalid password  
-          </p>}
-          <p>Your password should have 8+ characters, a digit, and a special character</p>
-          <div className="row w-full flex justify-between">
-            <label htmlFor="password" className='col-4'>Verify Password</label>
-            <input className='w-3/4' type="text" name="password" id="password" onChange={handleFormChange} required />
-          </div>
-          {!passwordMatch && 
-          <p className='text-red-600'>
-            passwords do not match
-          </p>}
-          <button className='bg-slate-300 w-1/2 mx-auto p-1 rounded-md'
-            onSubmit={handleRegisterUser}>
-            Register
-          </button>
-        </form>
-        Already a user? <Link to='/login'>Log in</Link>
-      </div>
+        </div>
+
+        <button type='submit' className='bg-palette-dark-accent text-palette-lightest border-[1px] border-palette-dark-accent hover:bg-palette-dark transition-all duration-200 rounded-lg py-2 w-1/2 mx-auto'>
+          Register
+        </button>
+        <p className='login-or before:bg-palette-mid after:bg-palette-mid text-palette-dark dark:text-palette-light'>or</p>
+        <Link to='/login' className='bg-palette-lightest text-palette-dark border-[1px] border-palette-dark-accent  hover:bg-palette-light transition-all duration-200 rounded-lg py-2 w-1/2 mx-auto text-center'>
+          Sign in
+        </Link>
+      </form>
     </div>
   )
 }

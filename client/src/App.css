@@ -10,23 +10,3 @@
   width: fit-content;
   position: relative;
 }
-.login-or:before {
-  content: "";
-  display: block;
-  width: 150px;
-  height: 2px;
-  background: #64748B;
-  left: 85px;
-  top: 50%;
-  position: absolute;
-}
-.login-or:after {
-  content: "";
-  display: block;
-  width: 150px;
-  height: 2px;
-  background:#64748B;
-  right: 85px;
-  top: 50%;
-  position: absolute;
-}
