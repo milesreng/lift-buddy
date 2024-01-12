@@ -5,21 +5,14 @@ const ExerciseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: {
-    type: String
-  },
+  user_id: String,
+  description: String,
   primary_category: {
-    type: String
+    type: String,
+    required: true
   },
-  secondary_category: {
-    type: String
-  },
-  machine: {
-    type: String
-  },
-  link: {
-    type: String
-  }
+  secondary_category: String,
+  machine: String
 }, { timestamps: true })
 
 const Exercise = mongoose.model('exercise', ExerciseSchema)

@@ -5,7 +5,7 @@ const { WorkoutDetail } = require('../models/detail.model')
 const templateController = {
   get_template: async (req, res) => {
     try {
-      const template_id = req.body.template_id
+      const template_id = req.params.id
       const template = await Template.findById(new ObjectId(template_id))
   
       return res.status(200).json(template)
@@ -17,7 +17,7 @@ const templateController = {
   },
   get_user_templates: async (req, res) => {
     try {
-      const user_id = req.body.user_id
+      const user_id = req.params.id
       const template = await Template.find({ user_id: new ObjectId(user_id)})
   
       return res.status(200).json(template)
@@ -29,7 +29,7 @@ const templateController = {
   create_template: async (req, res) => {
     try {
       const template = req.body
-      const user_id = template.user_id
+      const user_id = req.UserData.UserId
   
       const newTemplate = new Template({
         user_id: new ObjectId(user_id),
@@ -48,7 +48,7 @@ const templateController = {
   },
   update_template: async (req, res) => {
     try {
-      const template_id = req.params.template_id
+      const template_id = req.params.id
       const details = req.body
 
       const template = await Template.findById(ObjectId(template_id))
@@ -66,7 +66,7 @@ const templateController = {
   },
   add_template_detail: async (req, res) => {
     try {
-      const template_id = req.body.template_id
+      const template_id = req.body.id
       const exercise_id = req.body.exercise_id
 
       // ideally the default reps/weight will be set to the last value as a placeholder
@@ -120,7 +120,7 @@ const templateController = {
   },
   delete_template: async (req, res) => {
     try {
-      const template_id = req.params.template_id
+      const template_id = req.params.id
 
       await Template.findByIdAndDelete(ObjectId(template_id))
 

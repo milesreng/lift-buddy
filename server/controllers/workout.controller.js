@@ -7,7 +7,7 @@ const { WorkoutDetail } = require('../models/detail.model')
 const workoutController = {
   get_workout: async (req, res) => {
     try {
-      const workout_id = req.params.workout_id
+      const workout_id = req.params.id
       const workout = await Workout.findById(workout_id)
   
       return res.status(200).json(workout)
@@ -18,7 +18,7 @@ const workoutController = {
   },
   get_workouts_by_user: async (req, res) => {
     try {
-      const uid = req.params.uid
+      const uid = req.userData.userId
       const workouts = await Workout.find({ user_id: uid })
   
       return res.status(200).json(workouts)
@@ -50,9 +50,10 @@ const workoutController = {
   },
   create_workout_from_template: async (req, res) => {
     try {
+      const template_id = req.params.id
       const workout = req.body
 
-      const template = await Template.findById(new ObjectId(workout.template_id))
+      const template = await Template.findById(new ObjectId(template_id))
 
       const newWorkout = new Workout({
         user_id: workout.user_id,
@@ -82,7 +83,7 @@ const workoutController = {
   },
   duplicate_workout: async (req, res) => {
     try {
-      const workout_id = req.body.workout_id
+      const workout_id = req.params.id
 
       const workout = await Workout.findById(new ObjectId(workout_id))
       const name = `Copy of ${workout.name}`
@@ -134,7 +135,7 @@ const workoutController = {
   },
   add_exercise: async (req, res) => {
     try {
-      const exercise_id = req.body.exercise_id
+      const exercise_id = req.params.id
       const workout_id = req.body.workout_id
 
       const newDetail = new WorkoutDetail({
@@ -160,7 +161,7 @@ const workoutController = {
   },
   add_exercise_set: async (req, res) => {
     try {
-      const workout_id = req.body.workout_id
+      const workout_id = req.params.id
       const detail_id = req.body.detail_id
       const set = {
         reps: req.body.reps,
@@ -183,7 +184,7 @@ const workoutController = {
   },
   update_exercise_set: async (req, res) => {
     try {
-      const workout_id = req.body.workout_id
+      const workout_id = req.params.id
       const detail_id = req.body.detail_id
       const set_id = req.body.set_id
 
@@ -209,7 +210,7 @@ const workoutController = {
   },
   end_workout: async (req, res) => {
     try {
-      const workout_id = req.body.workout_id
+      const workout_id = req.params.id
       const workout = await Workout.findById(new ObjectId(workout_id))
 
       workout.endTime = Date.now()
@@ -231,10 +232,30 @@ const workoutController = {
     }
   },
   delete_exercise: async (req, res) => {
+    try {
+      const workout_id = req.params.id
+      const detail_id = req.body.detail_id
 
+      const workout = Workout.findById(new ObjectId(workout_id))
+
+      workout.exercises.filter(exercise => exercise._id !== detail_id)
+
+      await workout.save()
+
+      return res.status(200).json({ message: 'exercise successfully deleted' })
+
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in workoutController.delete_exercise'})
+    }
   },
   delete_workout: async (req, res) => {
-
+    try {
+      
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({ message: 'error in workoutController.delete_workout'})
+    }
   }
 }
 

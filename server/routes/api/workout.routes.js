@@ -5,58 +5,58 @@ const checkAuth = require('../../middleware/checkAuth')
 const workoutController = require('../../controllers/workout.controller')
 
 // @route   GET api/workouts
-// @desc    Get workouts
-// @access  Public
-router.get('/', checkAuth, workoutController.get_workout)
-
-// @route   GET api/workouts/all
 // @desc    Get all workouts by user
-// @access  Public
-router.get('/all', checkAuth, workoutController.get_workouts_by_user)
+// @status  Testing
+router.get('/', checkAuth, workoutController.get_workouts_by_user)
 
-// @route   POST api/workouts
+// @route   GET api/workouts/:id
+// @desc    Get workouts
+// @status  Testing
+router.get('/:id', checkAuth, workoutController.get_workout)
+
+// @route   POST api/workouts/create
 // @desc    Create new workout
-// @access  Public
-router.post('/create/blank', checkAuth, workoutController.create_blank_workout)
+// @status  Testing
+router.post('/create', checkAuth, workoutController.create_blank_workout)
 
-// @route   POST api/workouts
+// @route   POST api/workouts/create/:id
 // @desc    Create new workout from template
-// @access  Public
-router.post('/create/source', checkAuth, workoutController.create_workout_from_template)
+// @status  Testing
+router.post('/create/:id', checkAuth, workoutController.create_workout_from_template)
 
-// @route   POST api/workouts
+// @route   POST api/workouts/duplicate
 // @desc    Duplicate existing workout
-// @access  Public
-router.post('/duplicate', checkAuth, workoutController.duplicate_workout)
+// @status  Testing
+router.post('/duplicate/:id', checkAuth, workoutController.duplicate_workout)
 
-// @route   POST api/workouts/update
+// @route   PATCH api/workouts/:id
 // @desc    Update workout
-// @access  Public
-router.post('/update', checkAuth, workoutController.update_workout_details)
+// @status  In progress
+router.patch('/:id', checkAuth, workoutController.update_workout_details)
 
-// @route   POST api/workouts/add/detail
+// @route   PATCH api/workouts/detail/:id
 // @desc    Add detail to workout
-// @access  Public
-router.post('/add/detail', checkAuth, workoutController.add_exercise)
+// @status  In progress
+router.patch('/detail/:id', checkAuth, workoutController.add_exercise)
 
-// @route   POST api/workouts/add/set
+// @route   PATCH api/workouts/set/:id
 // @desc    Add set to detail
-// @access  Public
-router.post('/add/set', checkAuth, workoutController.add_exercise_set)
+// @status  In progress
+router.patch('/set/:id', checkAuth, workoutController.add_exercise_set)
 
-// @route   POST api/workouts/update/set
+// @route   PATCH api/workouts/update/set
 // @desc    Update set details
-// @access  Public
-router.post('/update/set', checkAuth, workoutController.update_exercise_set)
+// @status  In progress
+router.patch('/update-set/:id', checkAuth, workoutController.update_exercise_set)
 
-// @route   POST api/workouts/end
+// @route   PATCH api/workouts/end/:id
 // @desc    End workout
-// @access  Public
-router.post('/end', checkAuth, workoutController.end_workout)
+// @status  In progress
+router.patch('/end/:id', checkAuth, workoutController.end_workout)
 
-// @route   DELETE api/workouts
+// @route   DELETE api/workouts/:id
 // @desc    Delete workout
-// @access  Public
-router.delete('/delete', checkAuth, workoutController.delete_workout)
+// @status  In progress
+router.delete('/:id', checkAuth, workoutController.delete_workout)
 
 module.exports = router 

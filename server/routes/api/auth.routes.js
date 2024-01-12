@@ -4,12 +4,12 @@ const userController = require('../../controllers/user.controller')
 
 // @route   POST api/users
 // @desc    Login user
-// @access  Public
+// @status  Functional
 router.post('/login', userController.login)
 
 // @route   POST api/users
 // @desc    Register new user
-// @access  Public
+// @status  Functional
 router.post('/register', userController.register)
 
 module.exports = router

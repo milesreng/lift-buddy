@@ -4,31 +4,35 @@ const checkAuth = require('../../middleware/checkAuth')
 
 const exerciseController = require('../../controllers/exercise.controller')
 
-// @route   GET api/exercises/exercise_id=
-// @desc    Get single exercise by id
-// @access  Public
-router.get('/', exerciseController.get_exercise)
-
 // @route   GET api/exercises
 // @desc    Get all exercises
-// @access  Public
-router.get('/all', exerciseController.get_all_exercises)
+// @status  Testing
+router.get('/', exerciseController.get_all_exercises)
 
-// @route   GET api/exercises/category=
+// @route   GET api/exercises/:id
+// @desc    Get single exercise by id
+// @status  Testing
+router.get('/:id', exerciseController.get_exercise)
+
+// @route   GET api/exercises/filter/:category
 // @desc    Get exercises by category
-// @access  Public
-router.get('/filter', exerciseController.get_exercises_by_category)
+// @status  Not started
+router.get('/filter/:category', exerciseController.get_exercises_by_category)
 
 // @route   POST api/exercises
 // @desc    Create new exercise
-// @access  Public
-router.post('/create', checkAuth, exerciseController.create_exercise)
+// @status  Testing
+router.post('/', checkAuth, exerciseController.create_exercise)
 
-// NOTE: UPDATE SHOULD CONSIDER GLOBAL VS. LOCAL CHANGES
+// @route   PATCH api/exercises/:id
+// @desc    Update exercise category 
+//            - Users should not be able to edit exercises if they did not create them.
+// @status  Testing
+router.patch('/:id', checkAuth, exerciseController.update_exercise)
 
-// @route   POST api/exercises
+// @route   DELETE api/exercises/:id
 // @desc    Update exercise category
-// @access  Public
-router.post('/update', checkAuth, exerciseController.update_exercise)
+// @status  Not started
+router.delete('/:id', checkAuth, exerciseController.update_exercise)
 
 module.exports = router
