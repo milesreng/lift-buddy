@@ -24,11 +24,11 @@ router.get('/filter/:category', exerciseController.get_exercises_by_category)
 // @status  Testing
 router.post('/', checkAuth, exerciseController.create_exercise)
 
-// @route   PATCH api/exercises/:id
+// @route   PUT api/exercises/:id
 // @desc    Update exercise category 
 //            - Users should not be able to edit exercises if they did not create them.
 // @status  Testing
-router.patch('/:id', checkAuth, exerciseController.update_exercise)
+router.put('/:id', checkAuth, exerciseController.update_exercise)
 
 // @route   DELETE api/exercises/:id
 // @desc    Update exercise category

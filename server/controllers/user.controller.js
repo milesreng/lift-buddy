@@ -47,7 +47,7 @@ const userController = {
 
       return res.status(201).json({ message: 'user successfully registered' })
     } catch (e) {
-      return res.status(400).json({ error: 'user could not be created' })
+      return res.status(402).json({ error: 'user could not be created' })
     }
   },
   login: async (req, res) => {
@@ -57,11 +57,13 @@ const userController = {
 
       if (dbUser) {
         var isMatch = await bcrypt.compare(password, dbUser.password)
+      } else {
+        return res.status(404).json({ error: 'user not found' })
       }
   
       // Match password with database password
       if (!isMatch) {
-        return res.status(401).json({ error:'invalid username or password' })
+        return res.status(400).json({ error:'invalid username or password' })
       }
   
       // Create a JSON web token
@@ -72,7 +74,7 @@ const userController = {
       res.status(200).json({ message: 'user successfully authenticated', token, userInfo: dbUser })
     } catch (e) {
       console.log(e)
-      return res.status(400).json({ error: 'user authentication failed' })
+      return res.status(402).json({ error: 'user authentication failed' })
     }
   },
   get_profile: async (req, res) => {
@@ -93,27 +95,32 @@ const userController = {
     return res.status(200).json(user)
   },
   update_email: async (req, res) => {
-    // implement email authentication prior to posting change
-    const userId = userData.userId
-    const email = req.body.email
+    try {
+      // implement email authentication prior to posting change
+      const userId = userData.userId
+      const email = req.body.email
 
-    if (!validator.isEmail(email)) {
-      return res.json({message: 'incorrect email format'})
+      if (!validator.isEmail(email)) {
+        return res.status(400).json({message: 'incorrect email format'})
+      }
+
+      const existEmail = await User.findOne({ email })
+
+      if (existEmail) {
+        res.json({message: 'email has already been taken'})
+      }
+
+      const updateUser = await User.findByIdAndUpdate(userId, { email })
+      
+      if (!updateUser) {
+        return res.status(404).json({error: 'could not find user'})
+      }
+      
+      return res.status(200).json({message: 'email successfully updated'})
+    } catch (e) {
+      console.log(e)
+      return res.status(400).json({error: 'email could not be updated'})
     }
-
-    const existEmail = await User.findOne({ email })
-
-    if (existEmail) {
-      res.json({message: 'email has already been taken'})
-    }
-
-    const updateUser = await User.findByIdAndUpdate(userId, { email })
-    
-    if (!updateUser) {
-      return res.status(404).json({error: 'could not update email'})
-    }
-    
-    return res.status(201).json({message: 'email successfully updated'})
   },
   update_password: async (req, res) => {
     try {
@@ -165,17 +172,17 @@ const userController = {
     const updateUser = await dbUser.save()
   
     if (!updateUser) {
-      return res.status(404).json({message: 'could not update user'})
+      return res.status(400).json({message: 'could not update user'})
     }
   
-    return res.status(201).json({message: 'user profile successfully updated'})
+    return res.status(200).json({message: 'user profile successfully updated'})
   },
   delete_user: async (req, res) => {
     try {
       const userId = req.userData.userId
       await User.findByIdAndDelete(userId)
   
-      return res.status(201).json({message: 'user account successfully deleted'})
+      return res.status(200).json({message: 'user account successfully deleted'})
     } catch (e) {
       return res.status(400).json({ message: 'could not delete user account'})
     }

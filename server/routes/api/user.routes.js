@@ -9,20 +9,20 @@ const userController = require('../../controllers/user.controller')
 // @status  Functional
 router.get('/', checkAuth, userController.get_profile)
 
-// @route   POST api/users
+// @route   PUT api/users
 // @desc    Update user email
 // @status  In progress
-router.patch('/update-email', checkAuth, userController.update_email)
+router.put('/update-email', checkAuth, userController.update_email)
 
-// @route   POST api/users
+// @route   PUT api/users
 // @desc    Update user password
 // @status  In progress
-router.patch('/update-password', checkAuth, userController.update_password)
+router.put('/update-password', checkAuth, userController.update_password)
 
-// @route   POST api/users
+// @route   PUT api/users
 // @desc    Update user profile
 // @status  In progress
-router.patch('/update-profile', checkAuth, userController.update_profile_details)
+router.put('/update-profile', checkAuth, userController.update_profile_details)
 
 // @route   DELETE api/users
 // @desc    Delete user account

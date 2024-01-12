@@ -13,7 +13,7 @@ const workoutController = {
       return res.status(200).json(workout)
   
     } catch (e) {
-      return res.status(404).json({ message: 'error in workoutController.get_workout'})
+      return res.status(400).json({ message: 'error in workoutController.get_workout'})
     }
   },
   get_workouts_by_user: async (req, res) => {
@@ -24,7 +24,7 @@ const workoutController = {
       return res.status(200).json(workouts)
   
     } catch (e) {
-      return res.status(404).json({ message: 'error in workoutController.get_workouts_by_user'})
+      return res.status(400).json({ message: 'error in workoutController.get_workouts_by_user'})
     }
   },
   // use when workout created from scratch

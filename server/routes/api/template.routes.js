@@ -19,20 +19,20 @@ router.get('/:id', checkAuth, templateController.get_template)
 // @status  Testing
 router.post('/', checkAuth, templateController.create_template)
 
-// @route   PATCH api/templates/update/:id
+// @route   PUT api/templates/update/:id
 // @desc    Update template information
 // @status  Testing
-router.patch('/update/:id', checkAuth, templateController.update_template)
+router.put('/update/:id', checkAuth, templateController.update_template)
 
-// @route   PATCH api/templates/detail
+// @route   PUT api/templates/detail
 // @desc    Add detail to template
 // @status  Testing
-router.patch('/detail/:id', checkAuth, templateController.add_template_detail)
+router.put('/detail/:id', checkAuth, templateController.add_template_detail)
 
-// @route   PATCH api/templates/set
+// @route   PUT api/templates/set
 // @desc    Add set to exercise in template
 // @status  Testing
-router.patch('/set/:id', checkAuth, templateController.add_exercise_set)
+router.put('/set/:id', checkAuth, templateController.add_exercise_set)
 
 // @route   DELETE api/templates/:id
 // @desc    Delete template

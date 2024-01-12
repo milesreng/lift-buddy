@@ -29,30 +29,30 @@ router.post('/create/:id', checkAuth, workoutController.create_workout_from_temp
 // @status  Testing
 router.post('/duplicate/:id', checkAuth, workoutController.duplicate_workout)
 
-// @route   PATCH api/workouts/:id
+// @route   PUT api/workouts/:id
 // @desc    Update workout
 // @status  In progress
-router.patch('/:id', checkAuth, workoutController.update_workout_details)
+router.put('/:id', checkAuth, workoutController.update_workout_details)
 
-// @route   PATCH api/workouts/detail/:id
+// @route   PUT api/workouts/detail/:id
 // @desc    Add detail to workout
 // @status  In progress
-router.patch('/detail/:id', checkAuth, workoutController.add_exercise)
+router.put('/detail/:id', checkAuth, workoutController.add_exercise)
 
-// @route   PATCH api/workouts/set/:id
+// @route   PUT api/workouts/set/:id
 // @desc    Add set to detail
 // @status  In progress
-router.patch('/set/:id', checkAuth, workoutController.add_exercise_set)
+router.put('/set/:id', checkAuth, workoutController.add_exercise_set)
 
-// @route   PATCH api/workouts/update/set
+// @route   PUT api/workouts/update/set
 // @desc    Update set details
 // @status  In progress
-router.patch('/update-set/:id', checkAuth, workoutController.update_exercise_set)
+router.put('/update-set/:id', checkAuth, workoutController.update_exercise_set)
 
-// @route   PATCH api/workouts/end/:id
+// @route   PUT api/workouts/end/:id
 // @desc    End workout
 // @status  In progress
-router.patch('/end/:id', checkAuth, workoutController.end_workout)
+router.put('/end/:id', checkAuth, workoutController.end_workout)
 
 // @route   DELETE api/workouts/:id
 // @desc    Delete workout
