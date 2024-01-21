@@ -11,6 +11,8 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('dashboard', {name: 'Miles'})} />
       <Button title='log in'
         onPress={() => navigation.navigate('login')} />
+      <Button title='create an account'
+        onPress={() => navigation.navigate('register')} />
     </View>
   )
 }

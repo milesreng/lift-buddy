@@ -8,6 +8,7 @@ import baseStyle from './styles/BaseStyles'
 import HomeScreen from './screens/HomeScreen'
 import DashboardScreen from './screens/DashboardScreen'
 import LoginScreen from './screens/LoginScreen'
+import RegisterScreen from './screens/RegisterScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -26,6 +27,10 @@ export default function App() {
           name='login'
           component={LoginScreen}
           options={{title: 'Log in'}} />
+        <Stack.Screen
+          name='register'
+          component={RegisterScreen}
+          options={{title: 'Register'}} />
       </Stack.Navigator>
     </NavigationContainer>
   )
