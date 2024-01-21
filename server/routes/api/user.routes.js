@@ -24,9 +24,9 @@ router.put('/update-password', checkAuth, userController.update_password)
 // @status  In progress
 router.put('/update-profile', checkAuth, userController.update_profile_details)
 
-// @route   DELETE api/users
+// @route   DELETE api/users/:id
 // @desc    Delete user account
 // @status  In progress
-router.delete('/delete', checkAuth, userController.delete_user)
+router.delete('/:id', checkAuth, userController.delete_user)
 
 module.exports = router
