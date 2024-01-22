@@ -1,4 +1,4 @@
-# gym-buddy
+# Lift Buddy
 
 - As a user, I want to be able to create an account and login through a website or app.
 - As a user, I want to be able to create a workout template, save it, and create records of workouts.
