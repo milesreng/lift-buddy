@@ -30,13 +30,19 @@ const workoutController = {
   // use when workout created from scratch
   create_blank_workout: async (req, res) => {
     try {
+      const user_id = req.userData.userId
       const workout = req.body
+
+      const currTime = new Date()
+
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"]
+      console.log(days[currTime.getDay()])
   
       const newWorkout = new Workout({
-        user_id: workout.user_id,
-        name: workout.name,
+        user_id,
+        name: `${days[currTime.getDay()]} Workout`,
         exercises: [],
-        startTime: Date.now()
+        startTime: currTime
       })
   
       await newWorkout.save()
@@ -50,17 +56,23 @@ const workoutController = {
   },
   create_workout_from_template: async (req, res) => {
     try {
+      const user_id = req.userData.userId
       const template_id = req.params.id
-      const workout = req.body
+
+      const currTime = new Date()
+      
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"]
+
+      console.log(days[currTime.getDay()])
 
       const template = await Template.findById(new ObjectId(template_id))
 
       const newWorkout = new Workout({
-        user_id: workout.user_id,
-        name: `${template.name} Workout`,
+        user_id,
+        name: `${days[currTime.getDay()]} - ${template.name}`,
         template_id: new ObjectId(template._id),
         exercises: [],
-        startTime: Date.now()
+        startTime: currTime
       })
 
       for (var i = 0; i < template.exercises.length; i++) {
@@ -83,18 +95,18 @@ const workoutController = {
   },
   duplicate_workout: async (req, res) => {
     try {
+      const user_id = req.userData.userId
       const workout_id = req.params.id
 
       const workout = await Workout.findById(new ObjectId(workout_id))
       const name = `Copy of ${workout.name}`
 
       const newWorkout = new Workout({
-        user_id: workout.user_id, 
+        user_id, 
         template_id: workout.template_id,
         exercises: [],
         name, 
-        startTime: Date.now(), 
-        endTime: null 
+        startTime: Date.now()
       })
 
       // console.log(workout.exercises[0])

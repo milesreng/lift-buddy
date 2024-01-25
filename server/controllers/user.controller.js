@@ -67,11 +67,15 @@ const userController = {
       }
   
       // Create a JSON web token
-      const token = jwt.sign({ userId: dbUser._id, email: dbUser.email }, process.env.SECRET_KEY, {
+      const accessToken = jwt.sign({ userId: dbUser._id, email: dbUser.email }, process.env.SECRET_KEY, {
         expiresIn: '1h'
       })
-  
-      res.status(200).json({ message: 'user successfully authenticated', token, userInfo: dbUser })
+
+      const refreshToken = jwt.sign({ userId: dbUser._id, email: dbUser.email }, process.env.SECRET_KEY, {
+        expiresIn: '1d'
+      })
+
+      res.status(200).json({ message: 'user successfully authenticated', accessToken, refreshToken, userInfo: dbUser })
     } catch (e) {
       console.log(e)
       return res.status(402).json({ error: 'user authentication failed' })

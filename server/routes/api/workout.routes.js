@@ -6,23 +6,23 @@ const workoutController = require('../../controllers/workout.controller')
 
 // @route   GET api/workouts
 // @desc    Get all workouts by user
-// @status  Testing
+// @status  Functional
 router.get('/', checkAuth, workoutController.get_workouts_by_user)
 
 // @route   GET api/workouts/:id
 // @desc    Get workouts
-// @status  Testing
+// @status  Functional
 router.get('/:id', checkAuth, workoutController.get_workout)
 
 // @route   POST api/workouts/create
 // @desc    Create new workout
-// @status  Testing
+// @status  Functional
 router.post('/create', checkAuth, workoutController.create_blank_workout)
 
-// @route   POST api/workouts/create/:id
+// @route   POST api/workouts/template/:id
 // @desc    Create new workout from template
-// @status  Testing
-router.post('/create/:id', checkAuth, workoutController.create_workout_from_template)
+// @status  Not working
+router.post('/create-from/:id', checkAuth, workoutController.create_workout_from_template)
 
 // @route   POST api/workouts/duplicate
 // @desc    Duplicate existing workout
