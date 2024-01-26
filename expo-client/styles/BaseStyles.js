@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import Colors from '../utilities/Color'
 
-const baseStyle = StyleSheet.create({
+const baseStyles = StyleSheet.create({
   lightMode: {
     backgroundColor: Colors.BG_LIGHT,
     minHeight: '100%'
@@ -12,7 +12,7 @@ const baseStyle = StyleSheet.create({
   }
 })
 
-export default baseStyle
+export default baseStyles
 
 // 'dark': '#040D12',
 //           'dark-accent': '#183D3D',
