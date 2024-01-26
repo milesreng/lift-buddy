@@ -7,7 +7,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log('getting user with token ' + localStorage.token)
-    fetch('/api/users/profile', {
+    fetch('/api/users', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',

@@ -26,7 +26,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (localStorage.token) {
-      fetch('/api/users/profile', {
+      fetch('/api/users', {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
