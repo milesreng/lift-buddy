@@ -8,7 +8,7 @@ const workoutController = {
   get_workout: async (req, res) => {
     try {
       const workout_id = req.params.id
-      const workout = await Workout.findById(workout_id)
+      const workout = await Workout.findById(new ObjectId(workout_id))
   
       return res.status(200).json(workout)
   
@@ -19,7 +19,7 @@ const workoutController = {
   get_workouts_by_user: async (req, res) => {
     try {
       const uid = req.userData.userId
-      const workouts = await Workout.find({ user_id: new ObjectId(uid) })
+      const workouts = await Workout.find({ user_id: new ObjectId(uid) }).sort({ startTime: 'asc' })
   
       return res.status(200).json(workouts)
   
@@ -31,12 +31,15 @@ const workoutController = {
   create_blank_workout: async (req, res) => {
     try {
       const user_id = req.userData.userId
-      const workout = req.body
+
+      const inProgress = await Workout.find({ user_id: new ObjectId(uid), endTime: null })
+
+      if (inProgress) {
+        return res.status(400).json({ message: 'another workout is in progress'})
+      }
 
       const currTime = new Date()
-
-      const days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"]
-      console.log(days[currTime.getDay()])
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday','Saturday']
   
       const newWorkout = new Workout({
         user_id,
@@ -59,13 +62,22 @@ const workoutController = {
       const user_id = req.userData.userId
       const template_id = req.params.id
 
+      const inProgress = await Workout.find({ user_id: new ObjectId(user_id), endTime: null })
+
+      if (inProgress.length > 0) {
+        return res.status(400).json({ message: 'another workout is in progress'})
+      }
+
       const currTime = new Date()
       
-      const days = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday","Saturday"]
-
-      console.log(days[currTime.getDay()])
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday','Saturday']
 
       const template = await Template.findById(new ObjectId(template_id))
+      console.log(template)
+
+      if (!template) {
+        return res.status(404).json({ message: 'template could not be found' })
+      }
 
       const newWorkout = new Workout({
         user_id,
@@ -145,10 +157,12 @@ const workoutController = {
       return res.status(400).json({ message: 'error in workoutController.duplicate_workout'})
     }
   },
-  add_exercise: async (req, res) => {
+  add_workout_detail: async (req, res) => {
     try {
-      const exercise_id = req.params.id
-      const workout_id = req.body.workout_id
+      const workout_id = req.params.id
+      const exercise_id = req.body.exercise_id
+
+      // ideally the default reps/weight will be set to the last value as a placeholder
 
       const newDetail = new WorkoutDetail({
         exercise_id: new ObjectId(exercise_id),
@@ -157,17 +171,18 @@ const workoutController = {
 
       const workout = await Workout.findById(new ObjectId(workout_id))
 
+      console.log(workout)
       workout.exercises.push(newDetail)
 
       await workout.save()
 
-      return res.status(200).json({ message: 'exercise added to workout', workout })
-      
+      return res.status(200).json({ message: 'detail added to workout', workout })
+
     } catch (e) {
       console.log(e)
-      return res.status(400).json({ message: 'error in add_exercise' })
+      return res.status(400).json({ message: 'error in add_workout_detail' })
     }
-  },
+  }, 
   update_exercise: async (req, res) => {
 
   },

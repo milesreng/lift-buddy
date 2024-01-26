@@ -125,7 +125,7 @@ const userController = {
       const existEmail = await User.findOne({ email })
 
       if (existEmail) {
-        res.json({message: 'email has already been taken'})
+        return res.status(400).json({message: 'email has already been taken'})
       }
 
       const updateUser = await User.findByIdAndUpdate(userId, { email })

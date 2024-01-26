@@ -21,38 +21,38 @@ router.post('/create', checkAuth, workoutController.create_blank_workout)
 
 // @route   POST api/workouts/template/:id
 // @desc    Create new workout from template
-// @status  Not working
+// @status  Functional
 router.post('/create-from/:id', checkAuth, workoutController.create_workout_from_template)
 
-// @route   POST api/workouts/duplicate
+// @route   POST api/workouts/duplicate/:id
 // @desc    Duplicate existing workout
 // @status  Testing
 router.post('/duplicate/:id', checkAuth, workoutController.duplicate_workout)
 
-// @route   PUT api/workouts/:id
+// @route   PATCH api/workouts/:id
 // @desc    Update workout
 // @status  In progress
-router.put('/:id', checkAuth, workoutController.update_workout_details)
+router.patch('/:id', checkAuth, workoutController.update_workout_details)
 
-// @route   PUT api/workouts/detail/:id
+// @route   PATCH api/workouts/:id/detail
 // @desc    Add detail to workout
-// @status  In progress
-router.put('/detail/:id', checkAuth, workoutController.add_exercise)
+// @status  Functional
+router.patch('/:id/detail', checkAuth, workoutController.add_workout_detail)
 
-// @route   PUT api/workouts/set/:id
+// @route   PATCH api/workouts/:id/set
 // @desc    Add set to detail
-// @status  In progress
-router.put('/set/:id', checkAuth, workoutController.add_exercise_set)
+// @status  Functional
+router.patch('/:id/set', checkAuth, workoutController.add_exercise_set)
 
-// @route   PUT api/workouts/update/set
+// @route   PATCH api/workouts/update/:id/set
 // @desc    Update set details
 // @status  In progress
-router.put('/update-set/:id', checkAuth, workoutController.update_exercise_set)
+router.patch('/update/:id/set', checkAuth, workoutController.update_exercise_set)
 
-// @route   PUT api/workouts/end/:id
+// @route   PATCH api/workouts/end/:id
 // @desc    End workout
 // @status  In progress
-router.put('/end/:id', checkAuth, workoutController.end_workout)
+router.patch('/:id/end', checkAuth, workoutController.end_workout)
 
 // @route   DELETE api/workouts/:id
 // @desc    Delete workout
