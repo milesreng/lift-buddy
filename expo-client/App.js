@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faHome, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faRightToBracket, faUser, faBorderTopLeft, faDumbbell } from '@fortawesome/free-solid-svg-icons'
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons'
 
 import Colors from './utilities/Color'
@@ -61,41 +61,51 @@ export default function App() {
         }}>
         {loggedIn ? (<>
           <Tab.Screen
-            name='home'
-            component={HomeScreen}
-            options={{
-              tabBarLabel: 'Home'
-            }} />
-          <Tab.Screen
             name='dashboard'
             component={DashboardScreen}
             options={{
-              name: 'Dashboard',
-              tabBarLabel: 'Dashboard'
-            }} />
-          <Tab.Screen
-            name='account'
-            component={AccountScreen}
-            options={{
-              tabBarLabel: 'Account'
+              name: 'dashboard',
+              tabBarLabel: 'Dashboard',
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={faHome} />
+              )
             }} />
           <Tab.Screen
             name='templates'
             component={TemplateScreen}
             options={{
-              tabBarLabel: 'Templates'
+              name: 'templates',
+              tabBarLabel: 'Templates',
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={faBorderTopLeft} />
+              )
             }} />
           <Tab.Screen
             name='workouts'
             component={WorkoutScreen}
             options={{
-              tabBarLabel: 'Workouts'
+              name: 'workouts',
+              tabBarLabel: 'Workouts',
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={faDumbbell} />
+              )
+            }} />
+          <Tab.Screen
+            name='account'
+            component={AccountScreen}
+            options={{
+              name: 'account',
+              tabBarLabel: 'Account',
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={faUser} />
+              )
             }} />
         </>) : (<>
           <Tab.Screen
             name='home'
             component={HomeScreen}
             options={{
+              name: 'home',
               tabBarLabel: 'Home',
               tabBarIcon: () => (
                 <FontAwesomeIcon icon={faHome} />
@@ -105,6 +115,7 @@ export default function App() {
             name='login'
             component={LoginScreen}
             options={{
+              name: 'login',
               tabBarLabel: 'Login',
               tabBarIcon: () => (
                 <FontAwesomeIcon icon={faRightToBracket} />
@@ -114,6 +125,7 @@ export default function App() {
             name='register'
             component={RegisterScreen}
             options={{
+              name: 'register',
               tabBarLabel: 'Register',
               tabBarIcon: () => (
                 <FontAwesomeIcon icon={faSquarePlus} />

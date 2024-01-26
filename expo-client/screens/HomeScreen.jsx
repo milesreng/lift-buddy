@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 import Colors from '../utilities/Color'
-import baseStyle from '../styles/BaseStyles'
+import baseStyles from '../styles/BaseStyles'
 
 const url = 'http://10.197.208.113:5001/api/users'
 
@@ -33,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
 }, [])
 
   return (
-    <View style={baseStyle.lightMode}>
+    <View style={baseStyles.lightMode}>
       <View style={styles.header}>
         <Text style={styles.headerText}>
           Lift Buddy

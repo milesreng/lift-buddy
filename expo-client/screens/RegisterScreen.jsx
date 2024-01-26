@@ -47,11 +47,14 @@ const RegisterScreen = ({ navigation }) => {
       <Text>
       {passwordMatch ? 'passwords match' : 'passwords do not match'}
       </Text>
-      <TouchableOpacity onPress={handleRegister} style={[formStyles.formButton]}>
-          <Text>register</Text>
+      <TouchableOpacity onPress={handleRegister} style={[formStyles.formButton, formStyles.formSubmitButton]}>
+          <Text style={formStyles.formButtonText}>register</Text>
       </TouchableOpacity>
-      <Button title='i already have an account'
-        onPress={() => navigation.navigate('login')} />
+      <Text style={{ textAlign: 'center', fontSize: 20 }}>--- OR ---</Text>
+      <TouchableOpacity style={[formStyles.formButton, formStyles.formElseButton]}
+        onPress={() => navigation.navigate('login')}>
+          <Text style={formStyles.formButtonText}>log in</Text>
+        </TouchableOpacity>
     </View>
   )
 }

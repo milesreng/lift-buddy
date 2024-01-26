@@ -1,9 +1,12 @@
 import { React, useState, useEffect } from 'react'
-import { View, Text, Button, TextInput } from 'react-native'
+import { View, Text, Button, TextInput, Pressable } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const url = 'http://10.197.208.113:5001/api/users'
+import baseStyle from '../styles/BaseStyles'
+import formStyles from '../styles/FormStyles'
+
+const baseUrl = 'http://10.197.208.113:5001/api'
 
 const DashboardScreen = ({ navigation, route }) => {
   const [user, setUser] = useState()
@@ -13,7 +16,7 @@ const DashboardScreen = ({ navigation, route }) => {
         try {
           const token = await AsyncStorage.getItem('accessToken')
 
-          const response = await axios.get(url, {
+          const response = await axios.get(`${baseUrl}/users`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -27,17 +30,30 @@ const DashboardScreen = ({ navigation, route }) => {
       getUser()
   }, [])
 
+  const handleCreateWorkout = async () => {
+    try {
+      const token = await AsyncStorage.getItem('accessToken')
+      const response = await axios.post(`${baseUrl}/workouts`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+
+      navigation.navigate('workouts')
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
-    <View>
+    <View style={baseStyle.lightMode}>
       {user && (
         <View>
           <Text>Hi, {user.firstname}!</Text>
-          <Button title='view my account'
-            onPress={() => navigation.navigate('account')} />
-          <Button title='view my templates'
-            onPress={() => navigation.navigate('templates')} />
-          <Button title='view my workouts'
-            onPress={() => navigation.navigate('workouts')} />
+          <Pressable style={[formStyles.formButton, formStyles.formSubmitButton]}
+            onPress={handleCreateWorkout}>
+            <Text style={formStyles.formButtonText}>+ create workout</Text>
+          </Pressable>
         </View>
       )}
     </View>

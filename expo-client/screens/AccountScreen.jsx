@@ -2,7 +2,10 @@ import { React, useState, useEffect } from 'react'
 import { View, Text, Modal, Pressable, StyleSheet, TextInput } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import Colors from '../utilities/Color'
+import baseStyles from '../styles/BaseStyles'
+import accountStyles from '../styles/AccountStyles'
 
 const urlStub = 'http://10.197.208.113:5001/api/users'
 
@@ -68,7 +71,7 @@ const AccountScreen = ({ navigation }) => {
   }
 
   return (
-   <View style={styles.centeredView}>
+   <View style={baseStyles.lightMode}>
     {user && (
       <View>
         <Text>{user.firstname} {user.lastname}</Text>
