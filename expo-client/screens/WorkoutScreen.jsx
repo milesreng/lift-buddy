@@ -34,13 +34,24 @@ workouts.forEach(workout => {
 })
 
   return (
-    <View>{workouts.map((workout, i) => (
-      <View key={i}>
-        <Text>
-        {workout.name}
-        </Text>
-      </View>
-    ))}</View>
+    <View>{workouts.map((workout, i) => {
+      const date = new Date(workout.startTime)
+      return (
+        <View key={i}>
+          <Text>
+          {workout.name}
+          </Text>
+          <Text>
+          {workout.startTime}
+          </Text>
+          <Text>
+          {workout.endTime}
+          </Text>
+          <Text>
+          {workout.exercises.length}
+          </Text>
+        </View>
+    )})}</View>
   )
 }
 

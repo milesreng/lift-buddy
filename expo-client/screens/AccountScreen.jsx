@@ -6,7 +6,7 @@ import Colors from '../utilities/Color'
 
 const urlStub = 'http://10.197.208.113:5001/api/users'
 
-const AccountScreen = () => {
+const AccountScreen = ({ navigation }) => {
   const [accessToken, setAccessToken] = useState()
 
   const [user, setUser] = useState()
@@ -18,43 +18,54 @@ const AccountScreen = () => {
   const [last, setLast] = useState('')
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const token = await AsyncStorage.getItem('accessToken')
-        setAccessToken(token)
-
-        const response = await axios.get(`${urlStub}/history`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        console.log(response.data)
-        setUser(response.data._doc)
-        setEmail(response.data._doc.email)
-        setHistory(response.data.numWorkouts)
-      } catch (e) {
-        console.error(e)
-      }
-    }
     getUser()
 }, [])
 
-const handleSetEmail = async () => {
-  if (email && accessToken) {
+  const getUser = async () => {
     try {
-      await axios.put(`${urlStub}/update-email`, {
+      const token = await AsyncStorage.getItem('accessToken')
+      setAccessToken(token)
+
+      const response = await axios.get(`${urlStub}/history`, {
         headers: {
-          'Authorization': `Bearer ${accessToken}`
-        },
-        body: {
-          email
+          'Authorization': `Bearer ${token}`
         }
       })
+      setUser(response.data._doc)
+      setEmail(response.data._doc.email)
+      setHistory(response.data.numWorkouts)
     } catch (e) {
       console.error(e)
     }
   }
-}
+
+  const handleSetEmail = async () => {
+    if (email && accessToken) {
+      try {
+        const data = {
+          email
+        }
+
+        await axios.put(`${urlStub}/update-email`, data, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        })
+
+        setViewModal(false)
+        alert('email has been changed successfully')
+        getUser()
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  const handleLogout = () => {
+    AsyncStorage.removeItem('accessToken')
+    AsyncStorage.removeItem('refreshToken')
+    navigation.navigate('home')
+  }
 
   return (
    <View style={styles.centeredView}>
@@ -65,6 +76,9 @@ const handleSetEmail = async () => {
         <Text>{history} workouts complete</Text>
         <Pressable onPress={() => setViewModal(true)}>
           <Text>edit profile</Text>
+        </Pressable>
+        <Pressable onPress={handleLogout}>
+          <Text>Log out</Text>
         </Pressable>
         <Modal
           animationType='slide'

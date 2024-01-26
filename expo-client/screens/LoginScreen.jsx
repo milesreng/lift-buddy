@@ -13,9 +13,7 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState()
 
   const handleLogin = async () => {
-
     try {
-      console.log(url)
       const response = await axios.post(url, { email, password })
       await AsyncStorage.setItem('accessToken', response.data.accessToken)
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken)
