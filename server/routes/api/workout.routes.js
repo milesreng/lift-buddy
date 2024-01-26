@@ -17,12 +17,12 @@ router.get('/:id', checkAuth, workoutController.get_workout)
 // @route   POST api/workouts/create
 // @desc    Create new workout
 // @status  Functional
-router.post('/create', checkAuth, workoutController.create_blank_workout)
+router.post('/', checkAuth, workoutController.create_blank_workout)
 
 // @route   POST api/workouts/template/:id
 // @desc    Create new workout from template
 // @status  Functional
-router.post('/create-from/:id', checkAuth, workoutController.create_workout_from_template)
+router.post('/:id', checkAuth, workoutController.create_workout_from_template)
 
 // @route   POST api/workouts/duplicate/:id
 // @desc    Duplicate existing workout
