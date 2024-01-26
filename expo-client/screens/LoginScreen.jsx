@@ -1,10 +1,11 @@
 import { React, useState } from 'react'
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 
 import baseStyle from '../styles/BaseStyles'
-import formStyle from '../styles/FormStyles'
+import formStyles from '../styles/FormStyles'
+import Colors from '../utilities/Color'
 
 const url = 'http://10.197.208.113:5001/api/auth/login'
 
@@ -28,28 +29,31 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={[baseStyle.lightMode, formStyle.formContainer]}>
+    <View style={[baseStyle.lightMode, formStyles.formContainer]}>
       <View>
         <TextInput 
-          style={formStyle.formInput}
+          style={formStyles.formInput}
           placeholder='email'
           onChangeText={setEmail} />
       </View>
       <View>
         <TextInput 
-          style={formStyle.formInput}
+          style={formStyles.formInput}
           placeholder='password'
           secureTextEntry
           onChangeText={setPassword} />  
       </View>
-      <TouchableOpacity onPress={handleLogin}>
-          <Text>log in</Text>
+      <TouchableOpacity onPress={handleLogin} style={[formStyles.formButton, formStyles.formSubmitButton]}>
+          <Text style={formStyles.formButtonText}>log in</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleForgotPassword}>
-          <Text>forgot password?</Text>
+          <Text style={formStyles.forgotPasswordText}>forgot password?</Text>
       </TouchableOpacity>
-      <Button title='create an account'
-        onPress={() => navigation.navigate('register')} />
+      <Text style={{ textAlign: 'center', fontSize: 20 }}>--- OR ---</Text>
+      <TouchableOpacity style={[formStyles.formButton, formStyles.formElseButton]}
+        onPress={() => navigation.navigate('register')}>
+          <Text style={formStyles.formButtonText}>create an account</Text>
+        </TouchableOpacity>
     </View>
   )
 }

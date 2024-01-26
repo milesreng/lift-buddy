@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
 
 import baseStyle from '../styles/BaseStyles'
-import formStyle from '../styles/FormStyles'
+import formStyles from '../styles/FormStyles'
 
 const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState()
@@ -17,29 +17,29 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={[baseStyle.lightMode, formStyle.formContainer]}>
+    <View style={[baseStyle.lightMode, formStyles.formContainer]}>
       <View>
         <TextInput 
-          style={formStyle.formInput}
+          style={formStyles.formInput}
           placeholder='username'
           onChange={text => setUsername(text)} />
       </View>
       <View>
         <TextInput 
-          style={formStyle.formInput}
+          style={formStyles.formInput}
           placeholder='email'
           onChange={text => setEmail(text)} />
       </View>
       <View>
         <TextInput 
-          style={formStyle.formInput}
+          style={formStyles.formInput}
           placeholder='password'
           secureTextEntry
           onChange={text => setPassword(text)} />  
       </View>
       <View>
         <TextInput 
-          style={formStyle.formInput}
+          style={formStyles.formInput}
           placeholder='confirm password'
           secureTextEntry
           onChange={text => setConfirmPassword(text)} />  
@@ -47,7 +47,7 @@ const RegisterScreen = ({ navigation }) => {
       <Text>
       {passwordMatch ? 'passwords match' : 'passwords do not match'}
       </Text>
-      <TouchableOpacity onPress={handleRegister}>
+      <TouchableOpacity onPress={handleRegister} style={[formStyles.formButton]}>
           <Text>register</Text>
       </TouchableOpacity>
       <Button title='i already have an account'

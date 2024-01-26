@@ -1,22 +1,38 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from 'react-native'
 
-import Colors from "../utilities/Color"
+import Colors from '../utilities/Color'
 
-const formStyle = StyleSheet.create({
+const formStyles = StyleSheet.create({
   formContainer: {
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    paddingTop: 6,
-    flexDirection: 'column',
-    gap: 12
+    justifyContent: 'center',
+    gap: 12,
+    paddingHorizontal: 12
   },
   formInput: {
-    width: "50%",
-    backgroundColor: Colors.LIGHT_ACCENT,
-    margin: 'auto',
-    padding: 2
+    color: Colors.BG_DARK,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    backgroundColor: Colors.LIGHT,
+    borderRadius: 4
+  },
+  formButton: {
+    width: '50%',
+    alignSelf: 'center',
+    paddingVertical: 2,
+    borderRadius: 24
+  },
+  formSubmitButton: {
+    backgroundColor: Colors.DARK_ACCENT,
+  },
+  formElseButton: {
+    backgroundColor: Colors.MID,
+  },
+  formButtonText: {
+    color: Colors.LIGHTEST,
+    textAlign: 'center',
+  },
+  forgotPasswordText: {
+    textAlign: 'center',
   }
 })
-
-export default formStyle
+export default formStyles
