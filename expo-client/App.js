@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen'
 import DashboardScreen from './screens/DashboardScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
+import TemplateScreen from './screens/TemplateScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -31,6 +32,10 @@ export default function App() {
           name='register'
           component={RegisterScreen}
           options={{title: 'Register'}} />
+        <Stack.Screen
+          name='templates'
+          component={TemplateScreen}
+          options={{title: 'Templates'}} />
       </Stack.Navigator>
     </NavigationContainer>
   )
