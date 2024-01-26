@@ -3,6 +3,8 @@ import { View, Text, Button } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import baseStyle from '../styles/BaseStyles'
+
 const url = 'http://10.197.208.113:5001/api/templates'
 
 const TemplateScreen = () => {
@@ -31,7 +33,7 @@ const TemplateScreen = () => {
 }, [])
 
   return (
-    <View>
+    <View style={baseStyle.lightMode}>
       {templates && (
         <View>
           <View>

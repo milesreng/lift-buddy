@@ -1,18 +1,24 @@
 import { React, useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import baseStyles from '../styles/BaseStyles'
+import formStyles from '../styles/FormStyles'
+import recordStyles from '../styles/RecordStyles'
 
 const url = 'http://10.197.208.113:5001/api/workouts'
 
 const WorkoutScreen = () => {
   const [user, setUser] = useState()
+  const [accessToken, setAccessToken] = useState()
   const [workouts, setWorkouts] = useState([])
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const token = await AsyncStorage.getItem('accessToken')
+        setAccessToken(token)
 
         const response = await axios.get(url, {
           headers: {
@@ -27,31 +33,48 @@ const WorkoutScreen = () => {
       }
     }
     getUser()
-}, [])
+  }, [])
 
-workouts.forEach(workout => {
-  console.log(workout.name)
-})
+  const handleCreateWorkout = async () => {
+    try {
+      await axios.post(url, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
-    <View>{workouts.map((workout, i) => {
-      const date = new Date(workout.startTime)
-      return (
-        <View key={i}>
-          <Text>
-          {workout.name}
-          </Text>
-          <Text>
-          {workout.startTime}
-          </Text>
-          <Text>
-          {workout.endTime}
-          </Text>
-          <Text>
-          {workout.exercises.length}
-          </Text>
+    <View  style={baseStyles.lightMode}>
+      <View style={recordStyles.workoutContainer}>
+        <View style={recordStyles.workoutRecord}>
+          <Pressable onPress={handleCreateWorkout}>
+            <Text>+ workout</Text>
+          </Pressable>
         </View>
-    )})}</View>
+        {workouts.map((workout, i) => {
+          const date = new Date(workout.startTime)
+          return (
+            <View key={i} style={recordStyles.workoutRecord}>
+              <Text>
+              {workout.name}
+              </Text>
+              <Text>
+              {workout.startTime}
+              </Text>
+              <Text>
+              {workout.endTime}
+              </Text>
+              <Text>
+              {workout.exercises.length}
+              </Text>
+            </View>
+        )})}
+      </View>
+    </View>
   )
 }
 
