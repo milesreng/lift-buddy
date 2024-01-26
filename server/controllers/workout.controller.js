@@ -19,7 +19,7 @@ const workoutController = {
   get_workouts_by_user: async (req, res) => {
     try {
       const uid = req.userData.userId
-      const workouts = await Workout.find({ user_id: uid })
+      const workouts = await Workout.find({ user_id: new ObjectId(uid) })
   
       return res.status(200).json(workouts)
   

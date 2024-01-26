@@ -9,9 +9,14 @@ const userController = require('../../controllers/user.controller')
 // @status  Functional
 router.get('/', checkAuth, userController.get_profile)
 
-// @route   PUT api/users
+// @route   GET api/users/history
+// @desc    Get user profile
+// @status  Functional
+router.get('/history', checkAuth, userController.get_history)
+
+// @route   PUT api/users/update-email
 // @desc    Update user email
-// @status  In progress
+// @status  Functional
 router.put('/update-email', checkAuth, userController.update_email)
 
 // @route   PUT api/users
@@ -21,7 +26,7 @@ router.put('/update-password', checkAuth, userController.update_password)
 
 // @route   PUT api/users
 // @desc    Update user profile
-// @status  In progress
+// @status  Functional
 router.put('/update-profile', checkAuth, userController.update_profile_details)
 
 // @route   DELETE api/users/:id

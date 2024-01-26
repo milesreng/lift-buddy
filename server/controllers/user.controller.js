@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+const { ObjectId } = require('mongodb')
 
 const User = require('../models/user.model')
+const Workout = require('../models/workout.model')
 
 const userController = {
   register: async (req, res) => {
@@ -98,10 +100,22 @@ const userController = {
 
     return res.status(200).json(user)
   },
+  get_history: async (req, res) => {
+    const user_id = req.userData.userId 
+    const dbUser = await User.findById(user_id)
+
+    const numWorkouts = await Workout.countDocuments({ user_id })
+
+    if (!dbUser) {
+      return res.status(404).json({ message: 'user not found' })
+    }
+
+    return res.status(200).json({ ...dbUser, numWorkouts })
+  },
   update_email: async (req, res) => {
     try {
       // implement email authentication prior to posting change
-      const userId = userData.userId
+      const userId = req.userData.userId
       const email = req.body.email
 
       if (!validator.isEmail(email)) {
@@ -156,30 +170,17 @@ const userController = {
     }
   },
   update_profile_details: async (req, res) => {
-    const userId = req.userData.userId
-    const user = req.body
-  
-    const dbUser = User.findById(userId)
-  
-    if (!dbUser) {
-      return res.status(404).json({message: 'could not find user'})
+    try {
+      const user_id = req.userData.userId
+      const user = req.body
+    
+      if (user.firstname) await User.findByIdAndUpdate( new ObjectId(user_id), { firstname: user.firstname })
+      if (user.lastname) await User.findByIdAndUpdate( user_id, { lastname: user.lastname })
+    
+      return res.status(200).json({message: 'user profile successfully updated'})
+    } catch (e) {
+      return res.status(404).json({error: 'could not update profile details'})
     }
-  
-    if (user.firstname) {
-      dbUser.firstname = user.firstname
-    }
-  
-    if (user.lastname) {
-      dbUser.lastname = user.lastname
-    }
-  
-    const updateUser = await dbUser.save()
-  
-    if (!updateUser) {
-      return res.status(400).json({message: 'could not update user'})
-    }
-  
-    return res.status(200).json({message: 'user profile successfully updated'})
   },
   delete_user: async (req, res) => {
     try {
