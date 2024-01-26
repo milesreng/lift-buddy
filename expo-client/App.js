@@ -10,6 +10,8 @@ import DashboardScreen from './screens/DashboardScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import TemplateScreen from './screens/TemplateScreen'
+import AccountScreen from './screens/AccountScreen'
+import WorkoutScreen from './screens/WorkoutScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -23,7 +25,8 @@ export default function App() {
           options={{title: 'Home'}} />
         <Stack.Screen
           name='dashboard'
-          component={DashboardScreen} />
+          component={DashboardScreen}
+          options={{title: 'Dashboard'}} />
         <Stack.Screen
           name='login'
           component={LoginScreen}
@@ -33,9 +36,17 @@ export default function App() {
           component={RegisterScreen}
           options={{title: 'Register'}} />
         <Stack.Screen
+          name='account'
+          component={AccountScreen}
+          options={{title: 'Account'}} />
+        <Stack.Screen
           name='templates'
           component={TemplateScreen}
           options={{title: 'Templates'}} />
+        <Stack.Screen
+          name='workouts'
+          component={WorkoutScreen}
+          options={{title: 'Workouts'}} />
       </Stack.Navigator>
     </NavigationContainer>
   )
