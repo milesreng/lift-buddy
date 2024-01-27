@@ -2,7 +2,7 @@ import { React, useContext, useState } from 'react'
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
-import { AuthContext } from '../App'
+import AuthContext from '../context/AuthContext'
 
 import baseStyle from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'

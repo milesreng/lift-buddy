@@ -9,6 +9,14 @@ const baseStyles = StyleSheet.create({
   darkMode: {
     backgroundColor: Colors.BG_DARK,
     minHeight: '100%'
+  },
+  screenContainer: {
+    padding: 12
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    paddingBottom: 12
   }
 })
 

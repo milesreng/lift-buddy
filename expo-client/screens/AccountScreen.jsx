@@ -1,8 +1,8 @@
 import { React, useState, useEffect, useContext } from 'react'
-import { View, Text, Modal, Pressable, StyleSheet, TextInput } from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet, TextInput, Image } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { AuthContext } from '../App'
+import AuthContext from '../context/AuthContext'
 
 import Colors from '../utilities/Color'
 import baseStyles from '../styles/BaseStyles'
@@ -74,18 +74,23 @@ const AccountScreen = ({ navigation }) => {
   }
 
   return (
-   <View style={baseStyles.lightMode}>
+   <View style={[baseStyles.lightMode, baseStyles.screenContainer]}>
+    <Text style={baseStyles.headerText}>Dashboard</Text>
     {user && (
       <View>
-        <Text>{user.firstname} {user.lastname}</Text>
-        <Text>{user.email}</Text>
+        <View style={accountStyles.profileContainer}>
+          <Image 
+            style={accountStyles.profileImage}
+            source={require('../assets/avatar-default.jpg')} />
+          <View style={accountStyles.profileSummary}>
+            <Text style={accountStyles.profileSummaryText}>{user.firstname} {user.lastname}</Text>
+            <Text style={accountStyles.profileSummaryText}>{user.email}</Text>
+            <Pressable onPress={() => setViewModal(true)}>
+              <Text>edit profile</Text>
+            </Pressable>
+          </View>
+        </View>
         <Text>{history} workouts complete</Text>
-        <Pressable onPress={() => setViewModal(true)}>
-          <Text>edit profile</Text>
-        </Pressable>
-        <Pressable onPress={handleLogout}>
-          <Text>Log out</Text>
-        </Pressable>
         <Modal
           animationType='slide'
           visible={viewModal}
@@ -110,6 +115,9 @@ const AccountScreen = ({ navigation }) => {
                       onChangeText={setLast} />
                   </View>
                 </View>
+                <Pressable onPress={handleLogout}>
+                  <Text>Log out</Text>
+                </Pressable>
                 <Pressable 
                   style={styles.buttonClose}
                   onPress={() => setViewModal(false)}>

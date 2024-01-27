@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import AuthContext from './context/AuthContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHome, faRightToBracket, faUser, faBorderTopLeft, faDumbbell } from '@fortawesome/free-solid-svg-icons'
@@ -24,8 +25,6 @@ import WorkoutScreen from './screens/WorkoutScreen'
 const Tab = createBottomTabNavigator()
 
 const urlStub = 'http://10.197.208.113:5001/api/users'
-
-export const AuthContext = createContext()
 
 export default function App() {
 
@@ -120,13 +119,13 @@ export default function App() {
               }} />
             </>) : (<>
             <Tab.Screen
-              name='dashboard'
-              component={DashboardScreen}
+              name='account'
+              component={AccountScreen}
               options={{
-                name: 'dashboard',
-                tabBarLabel: 'Dashboard',
+                name: 'account',
+                tabBarLabel: 'Account',
                 tabBarIcon: () => (
-                  <FontAwesomeIcon icon={faHome} />
+                  <FontAwesomeIcon icon={faUser} />
                 )
               }} />
             <Tab.Screen
@@ -147,16 +146,6 @@ export default function App() {
                 tabBarLabel: 'Workouts',
                 tabBarIcon: () => (
                   <FontAwesomeIcon icon={faDumbbell} />
-                )
-              }} />
-            <Tab.Screen
-              name='account'
-              component={AccountScreen}
-              options={{
-                name: 'account',
-                tabBarLabel: 'Account',
-                tabBarIcon: () => (
-                  <FontAwesomeIcon icon={faUser} />
                 )
               }} />
               </>)}

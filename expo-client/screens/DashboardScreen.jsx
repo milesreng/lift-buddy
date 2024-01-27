@@ -38,8 +38,6 @@ const DashboardScreen = ({ navigation, route }) => {
           'Authorization': `Bearer ${token}`
         }
       })
-
-      navigation.navigate('workouts')
     } catch (e) {
       console.error(e)
     }

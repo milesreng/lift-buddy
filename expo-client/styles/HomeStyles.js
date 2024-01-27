@@ -6,7 +6,7 @@ export default homeStyles = StyleSheet.create({
     height: '100%'
   },
   header: {
-    
+    padding: 24
   },
   headerText: {
     fontSize: 24,
