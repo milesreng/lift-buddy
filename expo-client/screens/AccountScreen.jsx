@@ -64,10 +64,10 @@ const AccountScreen = ({ navigation }) => {
     }
   }
 
-  const handleLogout = () => {
-    AsyncStorage.removeItem('accessToken')
-    AsyncStorage.removeItem('refreshToken')
-    navigation.navigate('home')
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('accessToken')
+    await AsyncStorage.removeItem('refreshToken')
+    navigation.navigate('login')
   }
 
   return (

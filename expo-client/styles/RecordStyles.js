@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 import Colors from '../utilities/Color'
 
 export default recordStyles = StyleSheet.create({
-  workoutContainer: {
+  recordContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 20,
@@ -11,7 +11,7 @@ export default recordStyles = StyleSheet.create({
     width: 'screen',
     padding: 12
   },
-  workoutRecord: {
+  record: {
     width: '45%',
     backgroundColor: Colors.BG_LIGHT_ACCENT,
     padding: 8,

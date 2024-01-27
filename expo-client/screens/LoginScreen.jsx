@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
       const response = await axios.post(url, { email, password })
       await AsyncStorage.setItem('accessToken', response.data.accessToken)
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken)
-      navigation.navigate('dashboard', {user: JSON.stringify(response.data.userInfo)})
+      navigation.navigate('home', {user: JSON.stringify(response.data.userInfo)})
     } catch (e) {
       console.error(e)
     }

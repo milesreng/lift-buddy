@@ -3,76 +3,42 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 import Colors from '../utilities/Color'
 import baseStyles from '../styles/BaseStyles'
+import homeStyles from '../styles/HomeStyles'
+import formStyles from '../styles/FormStyles'
+
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 
 const url = 'http://10.197.208.113:5001/api/users'
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ route, navigation }) => {
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const token = await AsyncStorage.getItem('accessToken')
-
-        const response = await axios.get(url, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-
-        if (response.data) {
-          navigation.navigate('dashboard')
-        }
-      } catch (e) {
-        console.error(e)
-      }
+    if (route.params) {
+      navigation.navigate('dashboard')
     }
-    getUser()
 }, [])
 
   return (
-    <View style={baseStyles.lightMode}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>
+    <View style={[baseStyles.lightMode, homeStyles.homeView]}>
+      <View style={homeStyles.header}>
+        <Text style={homeStyles.headerText}>
           Lift Buddy
-        <FontAwesomeIcon icon={faDumbbell} style={styles.headerText} />
         </Text>
       </View>
-      <View style={styles.navView}>
-        <Pressable title='log in' style={styles.navButton}
+      <View style={homeStyles.navContainer}>
+        <Pressable title='log in' style={[formStyles.formButton, formStyles.formSubmitButton]}
           onPress={() => navigation.navigate('login')}>
-            <Text>Log in</Text>
+            <Text style={formStyles.formButtonText}>Log in</Text>
           </Pressable>
-        <Pressable title='create an account' style={styles.navButton}
+        <Pressable title='create an account' style={[formStyles.formButton, formStyles.formElseButton]}
           onPress={() => navigation.navigate('register')}>
-            <Text>Register</Text>
+            <Text style={formStyles.formButtonText}>Register</Text>
         </Pressable>
       </View>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  header: {
-    paddingTop: 8,
-  },
-  headerText: {
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    fontSize: 24,
-  },
-  navView: {
-    flex: 1,
-    gap: 4,
-  },
-  navButton: {
-    flex: 1,
-    backgroundColor: Colors.LIGHT,
-    width: '50%',
-    justifyContent: 'center'
-  }
-})
 
 export default HomeScreen

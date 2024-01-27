@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import baseStyle from '../styles/BaseStyles'
+import recordStyles from '../styles/RecordStyles'
 
 const url = 'http://10.197.208.113:5001/api/templates'
 
@@ -30,15 +31,28 @@ const TemplateScreen = () => {
       }
     }
     getUser()
-}, [])
+  }, [])
+
+  const handleCreateTemplate = async () => {
+    try {
+
+    } catch (e) {
+
+    }
+  }
 
   return (
     <View style={baseStyle.lightMode}>
       {templates && (
         <View>
-          <View>
+          <View style={recordStyles.recordContainer}>
+            <View style={recordStyles.record}>
+              <Pressable onPress={handleCreateTemplate}>
+                <Text>+ workout</Text>
+              </Pressable>
+            </View>
             {templates.map((template, i) => (
-              <View key={i}>
+              <View key={i} style={recordStyles.record}>
                 <Text>{template.name}</Text>
                 <View>
                   {template.exercises.map((exercise, i) => {

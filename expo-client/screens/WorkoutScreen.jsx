@@ -49,8 +49,8 @@ const WorkoutScreen = () => {
 
   return (
     <View  style={baseStyles.lightMode}>
-      <View style={recordStyles.workoutContainer}>
-        <View style={recordStyles.workoutRecord}>
+      <View style={recordStyles.recordContainer}>
+        <View style={recordStyles.record}>
           <Pressable onPress={handleCreateWorkout}>
             <Text>+ workout</Text>
           </Pressable>
@@ -58,7 +58,7 @@ const WorkoutScreen = () => {
         {workouts.map((workout, i) => {
           const date = new Date(workout.startTime)
           return (
-            <View key={i} style={recordStyles.workoutRecord}>
+            <View key={i} style={recordStyles.record}>
               <Text>
               {workout.name}
               </Text>
