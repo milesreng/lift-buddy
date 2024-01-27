@@ -14,12 +14,15 @@ import Colors from './utilities/Color'
 import baseStyle from './styles/BaseStyles'
 
 import HomeScreen from './screens/HomeScreen'
+
 import DashboardScreen from './screens/DashboardScreen'
+import LoadingScreen from './screens/LoadingScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import TemplateScreen from './screens/TemplateScreen'
 import AccountScreen from './screens/AccountScreen'
 import WorkoutScreen from './screens/WorkoutScreen'
+
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -27,29 +30,27 @@ const Tab = createBottomTabNavigator()
 const urlStub = 'http://10.197.208.113:5001/api/users'
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [accessToken, setAccessToken] = useState()
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const token = await AsyncStorage.getItem('accessToken')
-        console.log(token)
-        if (token) {
-          const user = await axios.get(urlStub, {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          })
+        const acessToken = await AsyncStorage.getItem('accessToken')
+        console.log(acessToken)
+        setAccessToken(acessToken)
         if (user) setLoggedIn(true)
-        }
       } catch (e) {
         console.error(e)
         setLoggedIn(false)
       }
-    }
 
     checkLoginStatus()
-  }, [])
+  }}, [])
+
+  if (isLoading) {
+    return <LoadingScreen />
+  }
 
   return (
     <NavigationContainer>
@@ -59,7 +60,7 @@ export default function App() {
           tabBarInactiveTintColor: Colors.MID,
           tabBarInactiveBackgroundColor: Colors.BG_LIGHT
         }}>
-        {loggedIn ? (<>
+        { accessToken === null ? (<>
           <Tab.Screen
             name='dashboard'
             component={DashboardScreen}
@@ -100,38 +101,39 @@ export default function App() {
                 <FontAwesomeIcon icon={faUser} />
               )
             }} />
-        </>) : (<>
-          <Tab.Screen
+            </>) : (<>
+            <Tab.Screen
             name='home'
             component={HomeScreen}
             options={{
               name: 'home',
               tabBarLabel: 'Home',
+              tabBarButton: () => null,
               tabBarIcon: () => (
                 <FontAwesomeIcon icon={faHome} />
               )
             }} />
-          <Tab.Screen
-            name='login'
-            component={LoginScreen}
-            options={{
-              name: 'login',
-              tabBarLabel: 'Login',
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={faRightToBracket} />
-              )
+            <Tab.Screen
+              name='login'
+              component={LoginScreen}
+              options={{
+                name: 'login',
+                tabBarLabel: 'Login',
+                tabBarIcon: () => (
+                  <FontAwesomeIcon icon={faRightToBracket} />
+                )
+              }} />
+            <Tab.Screen
+              name='register'
+              component={RegisterScreen}
+              options={{
+                name: 'register',
+                tabBarLabel: 'Register',
+                tabBarIcon: () => (
+                  <FontAwesomeIcon icon={faSquarePlus} />
+                )
             }} />
-          <Tab.Screen
-            name='register'
-            component={RegisterScreen}
-            options={{
-              name: 'register',
-              tabBarLabel: 'Register',
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={faSquarePlus} />
-              )
-            }} />
-        </>)}
+          </>)}
       </Tab.Navigator>
     </NavigationContainer>
   )
