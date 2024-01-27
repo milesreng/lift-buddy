@@ -41,11 +41,15 @@ const userController = {
 
       const newUser = new User({ 
         username: lowerUsername, 
-        firstname: user.firstname,
+        firstname: user.firstName,
         email: user.email,
         password: hashedPassword})
+
+      
+      console.log(newUser)
         
-        await newUser.save()
+      await newUser.save()
+            
 
       return res.status(201).json({ message: 'user successfully registered' })
     } catch (e) {
