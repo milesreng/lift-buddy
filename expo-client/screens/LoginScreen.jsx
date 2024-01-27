@@ -1,7 +1,8 @@
-import { React, useState } from 'react'
+import { React, useContext, useState } from 'react'
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
+import { AuthContext } from '../App'
 
 import baseStyle from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
@@ -13,12 +14,14 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
+  const { signIn } = useContext(AuthContext)
+
   const handleLogin = async () => {
     try {
       const response = await axios.post(url, { email, password })
       await AsyncStorage.setItem('accessToken', response.data.accessToken)
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken)
-      navigation.navigate('home', {user: JSON.stringify(response.data.userInfo)})
+      signIn()
     } catch (e) {
       console.error(e)
     }

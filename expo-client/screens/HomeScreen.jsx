@@ -15,9 +15,12 @@ const url = 'http://10.197.208.113:5001/api/users'
 
 const HomeScreen = ({ route, navigation }) => {
   useEffect(() => {
-    if (route.params) {
-      navigation.navigate('dashboard')
+    const checkLogin = async () => {
+      const token = await AsyncStorage.getItem('accessToken')
+      if (token) navigation.navigate('dashboard')
     }
+
+    checkLogin()
 }, [])
 
   return (

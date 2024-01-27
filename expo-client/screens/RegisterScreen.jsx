@@ -1,7 +1,8 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useContext } from 'react'
 import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AuthContext } from '../App'
 
 import baseStyle from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
@@ -16,6 +17,8 @@ const RegisterScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('')
 
   const [passwordMatch, setPasswordMatch] = useState(false)
+
+  const { signUp } = useContext(AuthContext)
 
   useEffect(() => {
     if (password === confirmPassword) {
@@ -38,7 +41,7 @@ const RegisterScreen = ({ navigation }) => {
         const response = await axios.post(url, user)
         if (response.data) {
           alert('your account has been successfully registered')
-          navigation.navigate('login')
+          signUp()
         }
       }
     } catch (e) {

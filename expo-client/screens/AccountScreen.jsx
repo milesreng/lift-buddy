@@ -1,7 +1,8 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useContext } from 'react'
 import { View, Text, Modal, Pressable, StyleSheet, TextInput } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AuthContext } from '../App'
 
 import Colors from '../utilities/Color'
 import baseStyles from '../styles/BaseStyles'
@@ -19,6 +20,8 @@ const AccountScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [first, setFirst] = useState('')
   const [last, setLast] = useState('')
+
+  const { signOut } = useContext(AuthContext)
 
   useEffect(() => {
     getUser()
@@ -67,7 +70,7 @@ const AccountScreen = ({ navigation }) => {
   const handleLogout = async () => {
     await AsyncStorage.removeItem('accessToken')
     await AsyncStorage.removeItem('refreshToken')
-    navigation.navigate('login')
+    signOut()
   }
 
   return (
