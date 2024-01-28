@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import AuthContext from '../context/AuthContext'
 
-import baseStyle from '../styles/BaseStyles'
+import baseStyles from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
 import Colors from '../utilities/Color'
 
@@ -32,31 +32,34 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={[baseStyle.lightMode, formStyles.formContainer]}>
-      <View>
-        <TextInput 
-          style={formStyles.formInput}
-          placeholder='email'
-          onChangeText={setEmail} />
-      </View>
-      <View>
-        <TextInput 
-          style={formStyles.formInput}
-          placeholder='password'
-          secureTextEntry
-          onChangeText={setPassword} />  
-      </View>
-      <TouchableOpacity onPress={handleLogin} style={[formStyles.formButton, formStyles.formSubmitButton]}>
-          <Text style={formStyles.formButtonText}>log in</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleForgotPassword}>
-          <Text style={formStyles.forgotPasswordText}>forgot password?</Text>
-      </TouchableOpacity>
-      <Text style={{ textAlign: 'center', fontSize: 20 }}>--- OR ---</Text>
-      <TouchableOpacity style={[formStyles.formButton, formStyles.formElseButton]}
-        onPress={() => navigation.navigate('register')}>
+    <View style={[baseStyles.lightMode, baseStyles.screenContainer]}>
+      <View style={formStyles.formContainer}>
+        <Text style={baseStyles.headerText}>Login</Text>
+        <View>
+          <TextInput 
+            style={formStyles.formInput}
+            placeholder='email'
+            onChangeText={setEmail} />
+        </View>
+        <View>
+          <TextInput 
+            style={formStyles.formInput}
+            placeholder='password'
+            secureTextEntry
+            onChangeText={setPassword} />  
+        </View>
+        <TouchableOpacity onPress={handleLogin} style={[formStyles.formButton, formStyles.formSubmitButton]}>
+            <Text style={formStyles.formButtonText}>log in</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleForgotPassword}>
+            <Text style={formStyles.forgotPasswordText}>forgot password?</Text>
+        </TouchableOpacity>
+        <Text style={{ textAlign: 'center', fontSize: 20 }}>--- OR ---</Text>
+        <TouchableOpacity style={[formStyles.formButton, formStyles.formElseButton]}
+          onPress={() => navigation.navigate('register')}>
           <Text style={formStyles.formButtonText}>create an account</Text>
         </TouchableOpacity>
+      </View>
     </View>
   )
 }

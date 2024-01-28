@@ -7,7 +7,8 @@ const Colors = {
   LIGHT: '#c3d6ce',
   LIGHTEST: '#e1ebe7',
   BG_LIGHT: '#e5ebe9',
-  BG_LIGHT_ACCENT: '#eff5f3'
+  BG_LIGHT_ACCENT: '#eff5f3',
+  ERROR_RED: '#ffeded'
 }
 
 export default Colors

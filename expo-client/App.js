@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AuthContext from './context/AuthContext'
+import axios from 'axios'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHome, faRightToBracket, faUser, faBorderTopLeft, faDumbbell } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +15,6 @@ import baseStyle from './styles/BaseStyles'
 
 import HomeScreen from './screens/HomeScreen'
 
-import DashboardScreen from './screens/DashboardScreen'
 import LoadingScreen from './screens/LoadingScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
@@ -40,13 +40,15 @@ export default function App() {
         return {
           ...prevState,
           userToken: action.token,
-          isSignout: false
+          isSignout: false,
+          isLoading: false
         };
       case 'SIGN_OUT':
         return {
           ...prevState,
           isSignout: true,
-          userToken: null
+          userToken: null,
+          isLoading: false
         };
     }
   }, {
@@ -60,10 +62,17 @@ export default function App() {
       let accessToken;
       try {
         accessToken = await AsyncStorage.getItem('accessToken')
+        const response = await axios.get(urlStub, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        })
+
+        dispatch({ type: 'RESTORE_TOKEN', token: accessToken })
       } catch (e) {
-        console.error(e)
+        console.log(e)
+        dispatch({ type: 'SIGN_OUT' })
       }
-      dispatch({ type: 'RESTORE_TOKEN', token: accessToken })
     }
     
     checkLoginStatus()
@@ -102,6 +111,7 @@ export default function App() {
                 component={LoginScreen}
                 options={{
                   name: 'login',
+                  headerShown: false,
                   tabBarLabel: 'Login',
                   tabBarIcon: () => (
                     <FontAwesomeIcon icon={faRightToBracket} />
@@ -112,6 +122,7 @@ export default function App() {
                 component={RegisterScreen}
                 options={{
                   name: 'register',
+                  headerShown: false,
                   tabBarLabel: 'Register',
                   tabBarIcon: () => (
                     <FontAwesomeIcon icon={faSquarePlus} />
