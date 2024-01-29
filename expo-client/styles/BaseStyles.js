@@ -16,8 +16,42 @@ const baseStyles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
-    paddingBottom: 12
-  }
+    paddingBottom: 12,
+    textTransform: 'capitalize'
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+    backgroundColor: Colors.BG
+  },
+  categoryText: {
+    fontWeight: 'bold'
+  },
+  recordModalView: {
+
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: Colors.LIGHTEST,
+    borderRadius: 20,
+    padding: 25,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    justifyContent: 'space-between'
+  },
+  modalButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
 })
 
 export default baseStyles
