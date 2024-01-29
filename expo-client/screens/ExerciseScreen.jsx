@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, Pressable, ScrollView } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Dropdown } from 'react-native-element-dropdown'
+import categories from '../utilities/Categories'
 
 import ExerciseRecord from '../components/ExerciseRecord'
 
@@ -11,6 +13,7 @@ import recordStyles from '../styles/RecordStyles'
 const url = 'http://10.197.208.113:5001/api/exercises'
 
 const ExerciseScreen = () => {
+  const [accessToken, setAccessToken] = useState()
   const [exercises, setExercises] = useState([])
   const [category, setCategory] = useState()
 
@@ -18,6 +21,7 @@ const ExerciseScreen = () => {
     const getExercises = async () => {
       try {
         const token = await AsyncStorage.getItem('accessToken')
+        setAccessToken(token)
 
         const response = await axios.get(url, {
           headers: {
@@ -26,7 +30,6 @@ const ExerciseScreen = () => {
         })
 
         setExercises(response.data)
-        console.log(exercises)
       } catch (e) {
         console.error(e.response.data)
       }
@@ -35,9 +38,46 @@ const ExerciseScreen = () => {
     getExercises()
   }, [])
 
+  const renderLabel = () => {
+    if (category) {
+      return (
+        <Text>Category</Text>
+      )
+    }
+
+    return null
+  }
+
+  const handleFilterExercises = async () => {
+    if (category !== '') {
+      try {
+        const response = axios.get(`${url}/${category}`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        })
+
+        if (response.data) {
+          setExercises(response.data)
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
   return (
     <View style={[baseStyles.screenContainer, baseStyles.lightMode]}>
       <Text style={baseStyles.headerText}>Exercises</Text>
+      <Dropdown
+        data={categories}
+        labelField="label"
+        valueField="value"
+        onChange={(item) => {
+          setCategory(item.value)
+          handleFilterExercises()
+        }}
+        />
       <ScrollView style={recordStyles.scrollContainer}>
         {exercises.map((exercise, i) => (
             <ExerciseRecord key={i} exercise={exercise} lastExercise={i === 0 ? null : exercises[i - 1]} />

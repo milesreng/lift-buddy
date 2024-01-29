@@ -7,7 +7,7 @@ import AuthContext from './context/AuthContext'
 import axios from 'axios'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faHome, faRightToBracket, faUser, faBorderTopLeft, faDumbbell } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faRightToBracket, faUser, faBorderTopLeft, faDumbbell, faClipboard } from '@fortawesome/free-solid-svg-icons'
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons'
 
 import Colors from './utilities/Color'
@@ -21,6 +21,7 @@ import RegisterScreen from './screens/RegisterScreen'
 import TemplateScreen from './screens/TemplateScreen'
 import AccountScreen from './screens/AccountScreen'
 import WorkoutScreen from './screens/WorkoutScreen'
+import ExerciseScreen from './screens/ExerciseScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -103,7 +104,10 @@ export default function App() {
           screenOptions={{ 
             tabBarActiveTintColor: Colors.DARK_ACCENT,
             tabBarInactiveTintColor: Colors.MID,
-            tabBarInactiveBackgroundColor: Colors.BG_LIGHT
+            tabBarInactiveBackgroundColor: Colors.BG_LIGHT,
+            headerStyle: {
+              backgroundColor: Colors.BG_LIGHT
+            }
           }}>
           { state.userToken === null ? (<>
               <Tab.Screen
@@ -130,31 +134,41 @@ export default function App() {
               }} />
             </>) : (<>
             <Tab.Screen
-              name='account'
+              name='Dashboard'
               component={AccountScreen}
               options={{
-                name: 'account',
-                tabBarLabel: 'Account',
+                name: 'Dashboard',
+                tabBarLabel: 'Dashboard',
                 tabBarIcon: () => (
                   <FontAwesomeIcon icon={faUser} />
                 )
               }} />
             <Tab.Screen
-              name='templates'
+              name='Templates'
               component={TemplateScreen}
               options={{
-                name: 'templates',
+                name: 'Templates',
                 tabBarLabel: 'Templates',
                 tabBarIcon: () => (
                   <FontAwesomeIcon icon={faBorderTopLeft} />
                 )
               }} />
             <Tab.Screen
-              name='workouts'
+              name='Workouts'
               component={WorkoutScreen}
               options={{
-                name: 'workouts',
+                name: 'Workouts',
                 tabBarLabel: 'Workouts',
+                tabBarIcon: () => (
+                  <FontAwesomeIcon icon={faClipboard} />
+                )
+              }} />
+            <Tab.Screen
+              name='Exercises'
+              component={ExerciseScreen}
+              options={{
+                name: 'Exercises',
+                tabBarLabel: 'Exercises',
                 tabBarIcon: () => (
                   <FontAwesomeIcon icon={faDumbbell} />
                 )
