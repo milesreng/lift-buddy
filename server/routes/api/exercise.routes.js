@@ -14,10 +14,10 @@ router.get('/', exerciseController.get_all_exercises)
 // @status  Testing
 router.get('/:id', exerciseController.get_exercise)
 
-// @route   GET api/exercises/filter/:category
+// @route   GET api/exercises/:category
 // @desc    Get exercises by category
 // @status  Not started
-router.get('/filter/:category', exerciseController.get_exercises_by_category)
+router.get('/:category', exerciseController.get_exercises_by_category)
 
 // @route   POST api/exercises
 // @desc    Create new exercise

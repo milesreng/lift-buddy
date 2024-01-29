@@ -39,16 +39,14 @@ const exerciseController = {
   },
   get_exercises_by_category: async (req, res) => {
     const category = req.params.category
-    const regex = new RegExp(category, 'i')
     
-    const primary = await Exercise.find({ primary_category: { $regex: regex } })
-    const secondary = await Exercise.find({ secondary_category: { $regex: regex } })
+    const primary = await Exercise.find({ primary_category: category })
 
-    if (!primary && !secondary) {
+    if (!primary) {
       return res.status(404).json({ message: 'no exercises found' })
     }
 
-    return res.status(200).json({ primary, secondary })
+    return res.status(200).json({ primary })
   },
   update_exercise: async (req, res) => {
     try {
