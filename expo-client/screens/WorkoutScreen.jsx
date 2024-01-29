@@ -3,6 +3,8 @@ import { View, Text, Pressable } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import WorkoutRecord from '../components/WorkoutRecord'
+
 import baseStyles from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
 import recordStyles from '../styles/RecordStyles'
@@ -48,31 +50,17 @@ const WorkoutScreen = () => {
   }
 
   return (
-    <View  style={baseStyles.lightMode}>
+    <View  style={[baseStyles.screenContainer, baseStyles.lightMode]}>
+      <Text style={baseStyles.headerText}>Workouts</Text>
       <View style={recordStyles.recordContainer}>
         <View style={recordStyles.record}>
           <Pressable onPress={handleCreateWorkout}>
             <Text>+ workout</Text>
           </Pressable>
         </View>
-        {workouts.map((workout, i) => {
-          const date = new Date(workout.startTime)
-          return (
-            <View key={i} style={recordStyles.record}>
-              <Text>
-              {workout.name}
-              </Text>
-              <Text>
-              {workout.startTime}
-              </Text>
-              <Text>
-              {workout.endTime}
-              </Text>
-              <Text>
-              {workout.exercises.length}
-              </Text>
-            </View>
-        )})}
+        {workouts.map((workout, i) => (
+          <WorkoutRecord key={i} workout={workout} />
+        ))}
       </View>
     </View>
   )

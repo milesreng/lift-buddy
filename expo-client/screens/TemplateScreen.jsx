@@ -3,7 +3,7 @@ import { View, Text, Pressable } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import baseStyle from '../styles/BaseStyles'
+import baseStyles from '../styles/BaseStyles'
 import recordStyles from '../styles/RecordStyles'
 
 const url = 'http://10.197.208.113:5001/api/templates'
@@ -42,13 +42,14 @@ const TemplateScreen = () => {
   }
 
   return (
-    <View style={baseStyle.lightMode}>
+    <View style={[baseStyles.lightMode, baseStyles.screenContainer]}>
+      <Text style={baseStyles.headerText}>Templates</Text>
       {templates && (
         <View>
           <View style={recordStyles.recordContainer}>
             <View style={recordStyles.record}>
               <Pressable onPress={handleCreateTemplate}>
-                <Text>+ workout</Text>
+                <Text>+ template</Text>
               </Pressable>
             </View>
             {templates.map((template, i) => (

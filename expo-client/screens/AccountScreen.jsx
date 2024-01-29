@@ -96,9 +96,9 @@ const AccountScreen = ({ navigation }) => {
           animationType='slide'
           visible={viewModal}
           onRequestClose={() => setViewModal(false)}>
-            <View style={accountStyles.centeredView}>
-              <View style={accountStyles.modalView}>
-                <View style={accountStyles.modalButtonsContainer}>
+            <View style={baseStyles.centeredView}>
+              <View style={[baseStyles.modalView, accountStyles.modalView]}>
+                <View style={baseStyles.modalButtonsContainer}>
                   <Text style={baseStyles.headerText}>Edit Info</Text>
                   <Pressable 
                     style={[accountStyles.buttonClose, accountStyles.button]}
@@ -129,7 +129,7 @@ const AccountScreen = ({ navigation }) => {
                     </Pressable> */}
                   </View>
                 </View>
-                <View style={accountStyles.modalButtonsContainer}>
+                <View style={baseStyles.modalButtonsContainer}>
                   <Pressable onPress={handleLogout} style={[accountStyles.buttonLogout, accountStyles.button]}>
                     <Text style={accountStyles.buttonText}>log out</Text>
                   </Pressable>
