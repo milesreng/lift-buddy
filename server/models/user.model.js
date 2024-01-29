@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 
+const userMeasurementSchema = new mongoose.Schema({
+  
+})
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -21,6 +25,12 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  gender: {
+    type: String
+  },
+  birthDate: {
+    type: Date
   }
 
 }, { timestamps: true })

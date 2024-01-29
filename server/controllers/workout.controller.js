@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongodb')
 
 const Workout = require('../models/workout.model')
+const Exercise = require('../models/exercise.model')
 const Template = require('../models/template.model')
 const { WorkoutDetail } = require('../models/detail.model')
 
@@ -9,6 +10,15 @@ const workoutController = {
     try {
       const workout_id = req.params.id
       const workout = await Workout.findById(new ObjectId(workout_id))
+
+      workout.exercises_info = []
+
+      for (let i = 0; i < workout.exercises.length; i++) {
+        const exercise = await Exercise.findById(new ObjectId(workout.exercises[i].exercise_id))
+        workout.exercises_info.push(exercise)
+      }
+
+      console.log(workout)
   
       return res.status(200).json(workout)
   
