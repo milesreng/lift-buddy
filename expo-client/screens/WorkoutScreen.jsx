@@ -9,7 +9,7 @@ import baseStyles from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
 import recordStyles from '../styles/RecordStyles'
 
-const url = 'http://10.197.208.113:5001/api/workouts'
+const baseUrl = `${process.env.EXPRESS_URL}/workouts`
 
 const WorkoutScreen = () => {
   const [user, setUser] = useState()
@@ -22,7 +22,7 @@ const WorkoutScreen = () => {
         const token = await AsyncStorage.getItem('accessToken')
         setAccessToken(token)
 
-        const response = await axios.get(url, {
+        const response = await axios.get(baseUrl, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

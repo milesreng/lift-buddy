@@ -11,8 +11,6 @@ import formStyles from '../styles/FormStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 
-const url = 'http://10.197.208.113:5001/api/users'
-
 const HomeScreen = ({ route, navigation }) => {
   useEffect(() => {
     const checkLogin = async () => {

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import baseStyle from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
 
-const baseUrl = 'http://10.197.208.113:5001/api'
+const baseUrl = process.env.EXPRESS_URL
 
 const DashboardScreen = ({ navigation, route }) => {
   const [user, setUser] = useState()

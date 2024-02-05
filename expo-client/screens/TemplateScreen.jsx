@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import baseStyles from '../styles/BaseStyles'
 import recordStyles from '../styles/RecordStyles'
 
-const url = 'http://10.197.208.113:5001/api/templates'
+const baseUrl = `${process.env.EXPRESS_URL}/templates`
 
 const TemplateScreen = () => {
   const [user, setUser] = useState()
@@ -17,7 +17,7 @@ const TemplateScreen = () => {
       try {
         const token = await AsyncStorage.getItem('accessToken')
 
-        const response = await axios.get(url, {
+        const response = await axios.get(baseUrl, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

@@ -8,7 +8,7 @@ import baseStyles from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
 import Colors from '../utilities/Color'
 
-const url = 'http://10.197.208.113:5001/api/auth/login'
+const baseUrl = `${process.env.EXPRESS_URL}/auth/login`
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState()
@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(url, { email, password })
+      const response = await axios.post(baseUrl, { email, password })
       await AsyncStorage.setItem('accessToken', response.data.accessToken)
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken)
       signIn()

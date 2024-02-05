@@ -7,7 +7,7 @@ import validator from 'validator'
 import baseStyles from '../styles/BaseStyles'
 import formStyles from '../styles/FormStyles'
 
-const url = 'http://10.197.208.113:5001/api/auth/register'
+const baseUrl = `${process.env.EXPRESS_URL}/auth/register`
 
 const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState()
@@ -40,7 +40,7 @@ const RegisterScreen = ({ navigation }) => {
           password
         }
         console.log(username)
-        const response = await axios.post(url, user)
+        const response = await axios.post(baseUrl, user)
         if (response.data) {
           alert('your account has been successfully registered')
           signUp()
