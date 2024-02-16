@@ -25,7 +25,7 @@ import ExerciseScreen from './screens/ExerciseScreen'
 
 const Tab = createBottomTabNavigator()
 
-const urlStub = 'http://10.197.208.113:5001/api/users'
+const urlStub = `${process.env.EXPRESS_URL}/users`
 
 export default function App() {
 

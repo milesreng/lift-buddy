@@ -9,7 +9,7 @@ import baseStyles from '../styles/BaseStyles'
 import accountStyles from '../styles/AccountStyles'
 import formStyles from '../styles/FormStyles'
 
-const urlStub = 'http://10.197.208.113:5001/api/users'
+const urlStub = `${process.env.EXPRESS_URL}/users`
 
 const AccountScreen = ({ navigation }) => {
   const [accessToken, setAccessToken] = useState()

@@ -1,26 +1,20 @@
 const mongoose = require('mongoose')
 const fs = require('fs')
-const csv = require('fast-csv')
+
+const data = JSON.parse(fs.readFileSync('./exercises.json', 'utf-8'))
 
 const Exercise = require('../models/exercise.model')
-const data = []
+
 
 // read from csv
-fs.createReadStream('db/exercises.csv')
-    .pipe(csv.parse({ headers: true }))
-    .on('error', error => console.error(error))
-    .on('data', row => data.push(row))
-    .on('end', async () => {
-      for (let i = 0; i < data.length; i++) {
-        console.log(data[i])
-        const newExercise = new Exercise({
-          name: String(data[i].name),
-          description: data[i].description,
-          primary_category: data[i].primary_category,
-          secondary_category: data[i].secondary_category,
-          machine: data[i].machine
-        })
+const importData = async () => {
+  try {
+    await Exercise.create(data)
+    console.log('successfully imported data')
+    process.exit()
+  } catch (e) {
+    console.error('could not import data', e)
+  }
+}
 
-        await newExercise.save()
-      }
-  })
+importData()

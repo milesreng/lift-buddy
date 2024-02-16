@@ -1,0 +1,881 @@
+
+  {
+    "name": "bar dips",
+    "primary_category": "chest",
+    "secondary_category": "triceps",
+    "machine": "other",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "bench press",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "cable chest press",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "close-grip chest press",
+    "primary_category": "chest",
+    "secondary_category": "triceps",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "decline bench press",
+    "primary_category": "chest",
+    "secondary_category": "triceps",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell chest fly",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell chest press",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell pullover",
+    "primary_category": "chest",
+    "secondary_category": "back",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "incline bench press",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "incline dumbbell chest press",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "incline push-up",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "machine chest fly",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "pec deck",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "push-up",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "standing cable chest fly",
+    "primary_category": "chest",
+    "secondary_category": "shoulders",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell front raise",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell rear delt row",
+    "primary_category": "shoulders",
+    "secondary_category": "biceps",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell upright row",
+    "primary_category": "shoulders",
+    "secondary_category": "biceps",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "cable lateral raise",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell front raise",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell lateral raise",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell rear delt raise",
+    "primary_category": "shoulders",
+    "secondary_category": "biceps",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "face pull",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "machine lateral raise",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "machine shoulder press",
+    "primary_category": "shoulders",
+    "secondary_category": "triceps",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "overhead press",
+    "primary_category": "shoulders",
+    "secondary_category": "triceps",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "reverse cable fly",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "reverse machine fly",
+    "primary_category": "shoulders",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "seated dumbbell shoulder press",
+    "primary_category": "shoulders",
+    "secondary_category": "triceps",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "seated barbell overhead press",
+    "primary_category": "shoulders",
+    "secondary_category": "triceps",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell preacher curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "cable curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "concentration curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "bicep curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "hammer curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "incline dumbbell curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "machine bicep curl",
+    "primary_category": "biceps",
+    "secondary_category": "forearms",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "triceps extension",
+    "primary_category": "triceps",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "bench dip",
+    "primary_category": "triceps",
+    "secondary_category": "chest",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "overhead triceps extension",
+    "primary_category": "triceps",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "tricep pushdown",
+    "primary_category": "triceps",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell wrist curl",
+    "primary_category": "forearms",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell wrist curl",
+    "primary_category": "forearms",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "farmers walk",
+    "primary_category": "forearms",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "plate pinch",
+    "primary_category": "forearms",
+    "secondary_category": "",
+    "machine": "other",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "squat",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "hack squat",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "machine hack squat",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "lunge",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell lunge",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "box squat",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "other",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "front squat",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "goblet squat",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "hip adductions",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "hip abductions",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "leg extension",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "leg press",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "lying leg curl",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "seated leg curl",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "seated calf raise",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "standing calf raise",
+    "primary_category": "legs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "back extension",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "barbell shrug",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "close grip seated row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "wide grip seated row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "chin-up",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "bodweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "clean",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "clean and jerk",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "deadlift",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "deficit deadlift",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell shrug",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "good morning",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "inverted row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "underhand inverted row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "kettlebell swing",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "other",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "lat pulldown",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "one-handed lat pulldown",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "pendlay row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "power clean",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "power snatch",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "pull-up",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "seated machine row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "snatch",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "sumo deadlift",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "t-bar row",
+    "primary_category": "back",
+    "secondary_category": "",
+    "machine": "",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "banded side kicks",
+    "primary_category": "glute",
+    "secondary_category": "",
+    "machine": "other",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "cable pull through",
+    "primary_category": "glute",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "romanian deadlift",
+    "primary_category": "glute",
+    "secondary_category": "legs",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "dumbbell romanian deadlift",
+    "primary_category": "glute",
+    "secondary_category": "legs",
+    "machine": "dumbbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "hip thrust",
+    "primary_category": "glute",
+    "secondary_category": "",
+    "machine": "barbell",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "lateral band walk",
+    "primary_category": "glute",
+    "secondary_category": "",
+    "machine": "other",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "glute kickbacks",
+    "primary_category": "glute",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "cable crunch",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "cable",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "crunch",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "hanging leg raise",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "hanging knee raise",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "ab wheel roll-out",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "other",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "lying leg raise",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "machine crunch",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "mountain climbers",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "oblique crunch",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "plank",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "side plank",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "sit-up",
+    "primary_category": "abs",
+    "secondary_category": "",
+    "machine": "bodyweight",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "treadmill",
+    "primary_category": "cardio",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "rowing machine",
+    "primary_category": "cardio",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
+  {
+    "name": "stationary bike",
+    "primary_category": "cardio",
+    "secondary_category": "",
+    "machine": "machine",
+    "link": "",
+    "description": ""
+  }
